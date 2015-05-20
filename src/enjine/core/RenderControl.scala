@@ -16,7 +16,6 @@ class RenderControl (_gameSettings: GameSettings) {
 
   def gameSettings = _gameSettings
 
-
   /**
    * Used to initialise the rendering (ie screen)
    */
@@ -26,7 +25,7 @@ class RenderControl (_gameSettings: GameSettings) {
       initGL()
     }
     catch  {
-      case e : LWJGLException => {println("Could not start Graphics"); System exit 1}
+      case e : LWJGLException => println("Could not start Graphics"); System exit 1
     }
 
 
@@ -40,9 +39,10 @@ class RenderControl (_gameSettings: GameSettings) {
    */
   def update() {
     setCamera()
+
     drawBG()
 
-    drawGUI();
+    drawGUI()
     Display.sync(25)
     Display.update()
 
@@ -101,14 +101,7 @@ class RenderControl (_gameSettings: GameSettings) {
     GL11.glPopMatrix()
   }
   //
-  /**
-   * Draws an approximate Circle Circle
-   *
-   * Draws a circle as a regular polygon with a specific number of edges
-   * Ref: http://slabode.exofire.net/circle_draw.shtml
-   *
-   * @param circle The circle to draw
-   */
+
 
 
 }
@@ -152,6 +145,14 @@ UNUSED CODE FOR REFERENCE
     GL11.glEnd()
     GL11.glPopMatrix()
   }
+
+
+   * Draws an approximate Circle Circle
+   *
+   * Draws a circle as a regular polygon with a specific number of edges
+   * Ref: http://slabode.exofire.net/circle_draw.shtml
+   *
+   * @param circle The circle to draw
 
   private def drawCircle(circle: Circle) {
     val numSegments: Int = (circle.radius * 2.0 * Math.PI).toInt

@@ -14,7 +14,6 @@ object CopiaeGameMain {
 
     game.start()
 
-
   }
 
 }
