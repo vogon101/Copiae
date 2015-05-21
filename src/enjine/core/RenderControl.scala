@@ -42,6 +42,8 @@ class RenderControl (_gameSettings: GameSettings) {
 
     drawBG()
 
+    
+
     drawGUI()
     Display.sync(25)
     Display.update()
