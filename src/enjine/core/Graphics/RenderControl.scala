@@ -1,6 +1,8 @@
-package enjine.core
+package enjine.core.Graphics
 
+import enjine.core.DataStructures.Color3d
 import enjine.core.Settings.GameSettings
+import enjine.core.{Game, Transform, World}
 import org.lwjgl.LWJGLException
 import org.lwjgl.opengl.{Display, DisplayMode, GL11}
 
@@ -8,17 +10,21 @@ import org.lwjgl.opengl.{Display, DisplayMode, GL11}
  * Created by Freddie on 19/05/2015.
  *
  * RenderControl is used to control all of the basic rendering for the scene
+ *
+ * @param _gameSettings The settings to run from
  */
 class RenderControl (_gameSettings: GameSettings) {
 
-  //TODO: Make rendering of BG modular (Pass Unit)
-  //TODO: Add option for users to render their own objects (Pass Unit)
+  //TODO:Make additional render Uint based
+  //TODO:Make DrawBG Unit based
+  //TODO:Allow texture rendering
+  //TODO:Allow text rendering
 
   def gameSettings = _gameSettings
 
-
   /**
    * Used to initialise the rendering (ie screen)
+   *
    */
   def init () {
 
@@ -26,7 +32,7 @@ class RenderControl (_gameSettings: GameSettings) {
       initGL()
     }
     catch  {
-      case e : LWJGLException => {println("Could not start Graphics"); System exit 1}
+      case e : LWJGLException => println("Could not start Graphics"); System exit 1
     }
 
 
@@ -38,12 +44,17 @@ class RenderControl (_gameSettings: GameSettings) {
    * Main update function calls the entire render process
    * Should be called once per tick
    */
-  def update() {
+  def render(world: World) {
     setCamera()
+
     drawBG()
 
-    drawGUI();
-    Display.sync(25)
+    world.render()
+
+    //print("hi")
+
+    drawGUI()
+    Display.sync(30)
     Display.update()
 
 
@@ -53,7 +64,7 @@ class RenderControl (_gameSettings: GameSettings) {
   }
 
   private def drawGUI (): Unit = {
-
+    Game.g.GUIController.render()
   }
 
 
@@ -101,15 +112,34 @@ class RenderControl (_gameSettings: GameSettings) {
     GL11.glPopMatrix()
   }
   //
-  /**
-   * Draws an approximate Circle Circle
-   *
-   * Draws a circle as a regular polygon with a specific number of edges
-   * Ref: http://slabode.exofire.net/circle_draw.shtml
-   *
-   * @param circle The circle to draw
-   */
 
+
+
+}
+
+object R {
+  def glTranslateT (transform: Transform): Unit = {
+    GL11.glTranslated(transform.x, transform.y, transform.z)
+  }
+
+  def glQuad (transform: Transform, color: Color3d): Unit = {
+
+    GL11.glPushMatrix ()
+      glTranslateT(transform)
+
+      if (color != null)
+        color.bind()
+      else Color3d.RED.bind()
+
+      GL11.glBegin(GL11.GL_QUADS)
+        GL11.glVertex2d(0, 0)
+        GL11.glVertex2d(0, transform.ySize)
+        GL11.glVertex2d(transform.xSize, transform.ySize)
+        GL11.glVertex2d(transform.xSize, 0)
+      GL11.glEnd()
+    GL11.glPopMatrix()
+
+  }
 
 }
 
@@ -152,6 +182,14 @@ UNUSED CODE FOR REFERENCE
     GL11.glEnd()
     GL11.glPopMatrix()
   }
+
+
+   * Draws an approximate Circle Circle
+   *
+   * Draws a circle as a regular polygon with a specific number of edges
+   * Ref: http://slabode.exofire.net/circle_draw.shtml
+   *
+   * @param circle The circle to draw
 
   private def drawCircle(circle: Circle) {
     val numSegments: Int = (circle.radius * 2.0 * Math.PI).toInt
