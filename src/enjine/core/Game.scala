@@ -15,7 +15,8 @@ class Game {
 
   var running: Boolean = false
 
-  val gameObjects: ArrayBuffer[GameObject] = new ArrayBuffer[GameObject]()
+  var world:World = null
+
   //var paused: Boolean = true
 
 
@@ -24,10 +25,16 @@ class Game {
     renderer.init()
     running = true
 
+    Game.init(this)
+    world.start()
+
     mainloop()
   }
 
   private def mainloop (): Unit = {
+
+    if (world == null)
+      throw new Exception("World instance not set")
 
     while (running)
       update()
@@ -35,11 +42,16 @@ class Game {
   }
 
   private def update(): Unit = {
-    renderer.update()
+    renderer.render(world)
+    world.update()
   }
 
 }
 
 object Game {
-  //TODO: Make singleton instance of game
+  private var _g:Game = null
+
+  def g = _g
+
+  def init (game: Game) {if (g==null)_g = game}
 }

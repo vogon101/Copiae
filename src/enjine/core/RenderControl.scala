@@ -1,5 +1,6 @@
 package enjine.core
 
+import enjine.core.DataStructures.Color3d
 import enjine.core.Settings.GameSettings
 import org.lwjgl.LWJGLException
 import org.lwjgl.opengl.{Display, DisplayMode, GL11}
@@ -8,6 +9,8 @@ import org.lwjgl.opengl.{Display, DisplayMode, GL11}
  * Created by Freddie on 19/05/2015.
  *
  * RenderControl is used to control all of the basic rendering for the scene
+ *
+ * @param _gameSettings The settings to run from
  */
 class RenderControl (_gameSettings: GameSettings) {
 
@@ -18,6 +21,7 @@ class RenderControl (_gameSettings: GameSettings) {
 
   /**
    * Used to initialise the rendering (ie screen)
+   *
    */
   def init () {
 
@@ -37,15 +41,17 @@ class RenderControl (_gameSettings: GameSettings) {
    * Main update function calls the entire render process
    * Should be called once per tick
    */
-  def update() {
+  def render(world: World) {
     setCamera()
 
     drawBG()
 
-    
+    world.render()
+
+    //print("hi")
 
     drawGUI()
-    Display.sync(25)
+    Display.sync(30)
     Display.update()
 
 
@@ -105,6 +111,32 @@ class RenderControl (_gameSettings: GameSettings) {
   //
 
 
+
+}
+
+object R {
+  def glTranslateT (transform: Transform): Unit = {
+    GL11.glTranslated(transform.x, transform.y, transform.z)
+  }
+
+  def glQuad (transform: Transform, color: Color3d): Unit = {
+
+    GL11.glPushMatrix ()
+      glTranslateT(transform)
+
+      if (color != null)
+        color.bind()
+      else Color3d.RED.bind()
+
+      GL11.glBegin(GL11.GL_QUADS)
+        GL11.glVertex2d(0, 0)
+        GL11.glVertex2d(0, transform.ySize)
+        GL11.glVertex2d(transform.xSize, transform.ySize)
+        GL11.glVertex2d(transform.xSize, 0)
+      GL11.glEnd()
+    GL11.glPopMatrix()
+
+  }
 
 }
 

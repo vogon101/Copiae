@@ -6,7 +6,9 @@ package enjine.core.Settings
 class GameSettings {
 
   val MAX_FPS = 30
-  val SCREEN_WIDTH = 1280
-  val SCREEN_HEIGHT = 720
+  val SCREEN_WIDTH = 16*50
+  val SCREEN_HEIGHT = 9*50
+
+  val GAME_TITLE = "Copiae"
 
 }
