@@ -19,8 +19,11 @@ class RenderControl (_gameSettings: GameSettings) {
   //TODO:Make additional render Uint based
   //TODO:Make DrawBG Unit based
   //TODO:Allow texture rendering
-  //TODO:Allow text rendering
 
+  /**
+   * The settings that were used to initialise the display (i.e. SCREEN_HEIGHT)
+   * @return the settings
+   */
   def gameSettings = _gameSettings
 
   /**
@@ -46,13 +49,10 @@ class RenderControl (_gameSettings: GameSettings) {
    * Should be called once per tick
    */
   def render(world: World) {
-    //setCamera()
 
     drawBG()
 
     world.render()
-
-    //print("hi")
 
     drawGUI()
     Display.sync(30)
@@ -64,12 +64,18 @@ class RenderControl (_gameSettings: GameSettings) {
       System.exit(0)
   }
 
+  /**
+   * Draw the GUI
+   */
   private def drawGUI (): Unit = {
     Game.g.GUIController.render()
   }
 
 
-  @throws(classOf[LWJGLException])
+  /**
+   * Initialise the openGL
+   * call once at start
+    */
   private def initGL() {
     Display.setDisplayMode(new DisplayMode(gameSettings.SCREEN_WIDTH, gameSettings.SCREEN_HEIGHT))
     Display.create()
@@ -77,7 +83,10 @@ class RenderControl (_gameSettings: GameSettings) {
     setCamera()
   }
 
-  def setCamera() {
+  /**
+   * Sets up the camera
+   */
+  private def setCamera() {
 
     GL11.glClearColor(1f, 1f, 1f, 1.0f)
     GL11.glClear(GL11.GL_COLOR_BUFFER_BIT)
@@ -95,6 +104,9 @@ class RenderControl (_gameSettings: GameSettings) {
     GL11.glLoadIdentity()
   }
 
+  /**
+   * Draw the background
+   */
   private def drawBG() {
     GL11.glPushMatrix ()
     GL11.glTranslated(0, 0, 0)
@@ -113,15 +125,28 @@ class RenderControl (_gameSettings: GameSettings) {
 
 }
 
+
+/**
+ * Contains static methods to make rendering easier
+ */
 object R {
 
   private val rSettings = Game.g.renderer.gameSettings
 
 
+  /**
+   * Wrapper for glTranslated (x,y,x) for a Transform
+   * @param transform The transform to translate to
+   */
   def glTranslateT (transform: Transform): Unit = {
     GL11.glTranslated(transform.x, transform.y, transform.z)
   }
 
+  /**
+   * Draw an untextured quad
+   * @param transform - The box to draw
+   * @param color - The colour to draw it
+   */
   def glQuad (transform: Transform, color: Color3d): Unit = {
 
     GL11.glPushMatrix ()
@@ -141,16 +166,26 @@ object R {
 
   }
 
+  /**
+   * Draw text
+   * @param text - The text to render
+   * @param trueTypeFont - The font to use
+   * @param transform - Where to draw it
+   */
   def glDrawText (text:String, trueTypeFont: TrueTypeFont, transform: Transform): Unit = {
     glEnableText()
     trueTypeFont.drawString(transform.x.toInt, transform.y.toInt, text)
     glEnableDraw()
   }
 
+  /**
+   * Enable drawing after text or textures
+   */
   def glEnableDraw (): Unit = {
     GL11.glDisable(GL11.GL_TEXTURE_2D)
     GL11.glDisable(GL11.GL_BLEND)
   }
+
 
   private def glEnableText (): Unit = {
     GL11.glEnable(GL11.GL_TEXTURE_2D)

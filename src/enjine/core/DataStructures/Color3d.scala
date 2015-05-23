@@ -5,15 +5,24 @@ import org.lwjgl.opengl.GL11
 /**
  * Created by Freddie on 19/05/2015.
  *
+ * Class to hold a 3-Double colour nicely
+ *
  */
 class Color3d (val r:Double = 0, val g:Double = 0, val b:Double = 0) {
 
+
+  /**
+   * Use this to bind opengl to the color (glColor3d(r,g,b))
+   */
   def bind (): Unit = {
     GL11.glColor3d(r,g,b)
   }
 
 }
 
+/**
+ * Holds constants that represent common colours
+ */
 object Color3d {
   val RED = new Color3d(1,0,0)
   val GREEN = new Color3d(0,1,0)

@@ -9,9 +9,15 @@ import enjine.tile.data.TileType
 /**
  * Created by Freddie on 23/05/2015.
  *
+ * This is an example class to show how one would extend the World object
+ *
  */
 class TestWorld extends World{
 
+
+  /**
+   * Override the start method to create your own game init
+   */
   override def start (): Unit = {
 
     gameObjects.append(new Tile(new TileType(new Color3d(0,1,0), "Grass") ,new Transform(10,10,10,10, 0)))

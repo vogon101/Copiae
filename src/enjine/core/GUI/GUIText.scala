@@ -8,12 +8,27 @@ import org.newdawn.slick.TrueTypeFont
 /**
  * Created by Freddie on 23/05/2015.
  *
+ * Class for rendering Text to the screen as part of the GUI
+ *@param text - The text to render
+ *@param font - The font to use
+ *@param transform - Where to render it
+ *@param _color - The color to use for the text - UNIMPLEMENTED
+ *
+ *
  */
-class GUIText(var text: String, var font: TrueTypeFont, var transform: Transform) extends GUIElement{
+class GUIText(var text: String, var font: TrueTypeFont, var transform: Transform, private val _color: Color3d) extends GUIElement{
+
+  //TODO:Clickable text
+  //TODO:Track object text (HP)
+
+  color = _color
 
   def this (obj: Object, font: TrueTypeFont, transform: Transform) {
-    this (obj.toString, font, transform)
+    this (obj.toString, font, transform, null)
   }
 
+  /**
+   * Render the text
+   */
   def render (): Unit = {R.glDrawText(text, font,transform)}
 }
