@@ -1,5 +1,7 @@
 package enjine.core
 
+import org.lwjgl.input.Mouse
+
 import scala.collection.mutable.ArrayBuffer
 
 /**
@@ -14,11 +16,12 @@ class World {
 
   }
 
-  def render (): Unit  = {gameObjects.foreach(go => go.render())}
+  def render (): Unit  = {gameObjects.foreach(go => if (go.renderEnabled)go.render())}
 
   def update (){
 
     gameObjects.foreach(go => go.update())
+
 
   }
 

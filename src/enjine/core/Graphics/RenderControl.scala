@@ -5,6 +5,7 @@ import enjine.core.Settings.GameSettings
 import enjine.core.{Game, Transform, World}
 import org.lwjgl.LWJGLException
 import org.lwjgl.opengl.{Display, DisplayMode, GL11}
+import org.newdawn.slick.TrueTypeFont
 
 /**
  * Created by Freddie on 19/05/2015.
@@ -45,7 +46,7 @@ class RenderControl (_gameSettings: GameSettings) {
    * Should be called once per tick
    */
   def render(world: World) {
-    setCamera()
+    //setCamera()
 
     drawBG()
 
@@ -73,9 +74,11 @@ class RenderControl (_gameSettings: GameSettings) {
     Display.setDisplayMode(new DisplayMode(gameSettings.SCREEN_WIDTH, gameSettings.SCREEN_HEIGHT))
     Display.create()
     Display setTitle "TankWar"
+    setCamera()
   }
 
-  private def setCamera() {
+  def setCamera() {
+
     GL11.glClearColor(1f, 1f, 1f, 1.0f)
     GL11.glClear(GL11.GL_COLOR_BUFFER_BIT)
     GL11.glMatrixMode(GL11.GL_PROJECTION)
@@ -87,17 +90,10 @@ class RenderControl (_gameSettings: GameSettings) {
     GL11.glMatrixMode(GL11.GL_MODELVIEW)
     GL11.glMatrixMode(GL11.GL_PROJECTION)
     GL11.glLoadIdentity()
-    GL11.glOrtho(0, Display.getWidth, 0, Display.getHeight, 1, -1)
+    GL11.glOrtho(0,gameSettings.SCREEN_WIDTH,gameSettings.SCREEN_HEIGHT, 0, 1, -1)
     GL11.glMatrixMode(GL11.GL_MODELVIEW)
     GL11.glLoadIdentity()
   }
-
-
-
-
-
-
-
 
   private def drawBG() {
     GL11.glPushMatrix ()
@@ -118,6 +114,10 @@ class RenderControl (_gameSettings: GameSettings) {
 }
 
 object R {
+
+  private val rSettings = Game.g.renderer.gameSettings
+
+
   def glTranslateT (transform: Transform): Unit = {
     GL11.glTranslated(transform.x, transform.y, transform.z)
   }
@@ -139,6 +139,27 @@ object R {
       GL11.glEnd()
     GL11.glPopMatrix()
 
+  }
+
+  def glDrawText (text:String, trueTypeFont: TrueTypeFont, transform: Transform): Unit = {
+    glEnableText()
+    trueTypeFont.drawString(transform.x.toInt, transform.y.toInt, text)
+    glEnableDraw()
+  }
+
+  def glEnableDraw (): Unit = {
+    GL11.glDisable(GL11.GL_TEXTURE_2D)
+    GL11.glDisable(GL11.GL_BLEND)
+  }
+
+  private def glEnableText (): Unit = {
+    GL11.glEnable(GL11.GL_TEXTURE_2D)
+
+    GL11.glClearColor(1f,1f,1f,1.0f)
+
+    // enable alpha blending
+    GL11.glEnable(GL11.GL_BLEND)
+    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
   }
 
 }

@@ -28,6 +28,8 @@ class Game {
     renderer.init()
     running = true
 
+    GUIController.init()
+
     Game.init(this)
     world.start()
 
