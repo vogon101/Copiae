@@ -1,7 +1,8 @@
 package enjine.tile
 
 import enjine.core.DataStructures.Color3d
-import enjine.core.{R, GameObject, Transform}
+import enjine.core.Graphics.R
+import enjine.core.{GameObject, Transform}
 import enjine.tile.data.TileType
 import org.lwjgl.opengl.GL11
 

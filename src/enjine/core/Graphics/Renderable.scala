@@ -1,4 +1,4 @@
-package enjine.core
+package enjine.core.Graphics
 
 import enjine.core.DataStructures.Color3d
 

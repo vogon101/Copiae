@@ -1,6 +1,7 @@
 package enjine.core
 
 import enjine.core.DataStructures.Color3d
+import enjine.core.Graphics.Renderable
 
 /**
  * Created by Freddie on 20/05/2015.

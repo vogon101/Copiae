@@ -1,5 +1,7 @@
 package enjine.core
 
+import enjine.core.GUI.GUIController
+import enjine.core.Graphics.RenderControl
 import enjine.core.Settings.GameSettings
 
 import scala.collection.mutable.ArrayBuffer
@@ -16,6 +18,7 @@ class Game {
   var running: Boolean = false
 
   var world:World = null
+  val GUIController = new GUIController()
 
   //var paused: Boolean = true
 
@@ -44,6 +47,8 @@ class Game {
   private def update(): Unit = {
     renderer.render(world)
     world.update()
+    GUIController.update()
+
   }
 
 }

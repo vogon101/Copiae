@@ -1,7 +1,8 @@
-package enjine.core
+package enjine.core.Graphics
 
 import enjine.core.DataStructures.Color3d
 import enjine.core.Settings.GameSettings
+import enjine.core.{Game, Transform, World}
 import org.lwjgl.LWJGLException
 import org.lwjgl.opengl.{Display, DisplayMode, GL11}
 
@@ -14,8 +15,10 @@ import org.lwjgl.opengl.{Display, DisplayMode, GL11}
  */
 class RenderControl (_gameSettings: GameSettings) {
 
-  //TODO: Make rendering of BG modular (Pass Unit)
-  //TODO: Add option for users to render their own objects (Pass Unit)
+  //TODO:Make additional render Uint based
+  //TODO:Make DrawBG Unit based
+  //TODO:Allow texture rendering
+  //TODO:Allow text rendering
 
   def gameSettings = _gameSettings
 
@@ -61,7 +64,7 @@ class RenderControl (_gameSettings: GameSettings) {
   }
 
   private def drawGUI (): Unit = {
-
+    Game.g.GUIController.render()
   }
 
 
