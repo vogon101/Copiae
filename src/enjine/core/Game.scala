@@ -4,8 +4,7 @@ import enjine.core.DataStructures.TextStyles
 import enjine.core.GUI.GUIController
 import enjine.core.Graphics.RenderControl
 import enjine.core.Settings.GameSettings
-
-import scala.collection.mutable.ArrayBuffer
+import enjine.core.Utils.Time
 
 /**
  * Created by Freddie on 19/05/2015.
@@ -44,6 +43,8 @@ class Game {
    * inits opengl, GUI and world then starts the mainloop
     */
   def start (): Unit = {
+    Time.update()
+
     renderer.init()
     running = true
 
@@ -72,6 +73,7 @@ class Game {
    * Runs all the per-tick functions like rendering
    */
   protected def update(): Unit = {
+    Time.update()
     renderer.render(world)
     world.update()
     GUIController.update()

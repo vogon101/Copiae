@@ -16,9 +16,15 @@ import org.newdawn.slick.TrueTypeFont
  */
 class RenderControl (_gameSettings: GameSettings) {
 
-  //TODO:Make additional render Uint based
-  //TODO:Make DrawBG Unit based
+  //DONE:Make additional render Unit based
+  //DONE:Make DrawBG Unit based
   //TODO:Allow texture rendering
+
+  /**
+   * Use this to render additional background
+   */
+  var bgRenderer: () => Unit = null
+
 
   /**
    * The settings that were used to initialise the display (i.e. SCREEN_HEIGHT)
@@ -45,15 +51,23 @@ class RenderControl (_gameSettings: GameSettings) {
   }
 
   /**
+   * Used to render extra things before the GUI
+   */
+  var addRender: () => Unit = null
+
+  /**
    * Main update function calls the entire render process
    * Should be called once per tick
    */
   def render(world: World) {
 
     drawBG()
+    if (bgRenderer != null)
+      bgRenderer()
 
     world.render()
-
+    if (addRender != null)
+      addRender()
     drawGUI()
     Display.sync(30)
     Display.update()
