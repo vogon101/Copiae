@@ -5,6 +5,7 @@ import enjine.core.Settings.GameSettings
 import enjine.core.{Game, Transform, World}
 import org.lwjgl.LWJGLException
 import org.lwjgl.opengl.{Display, DisplayMode, GL11}
+import org.newdawn.slick.TrueTypeFont
 
 /**
  * Created by Freddie on 19/05/2015.
@@ -15,11 +16,20 @@ import org.lwjgl.opengl.{Display, DisplayMode, GL11}
  */
 class RenderControl (_gameSettings: GameSettings) {
 
-  //TODO:Make additional render Uint based
-  //TODO:Make DrawBG Unit based
+  //DONE:Make additional render Unit based
+  //DONE:Make DrawBG Unit based
   //TODO:Allow texture rendering
-  //TODO:Allow text rendering
 
+  /**
+   * Use this to render additional background
+   */
+  var bgRenderer: () => Unit = null
+
+
+  /**
+   * The settings that were used to initialise the display (i.e. SCREEN_HEIGHT)
+   * @return the settings
+   */
   def gameSettings = _gameSettings
 
   /**
@@ -41,18 +51,23 @@ class RenderControl (_gameSettings: GameSettings) {
   }
 
   /**
+   * Used to render extra things before the GUI
+   */
+  var addRender: () => Unit = null
+
+  /**
    * Main update function calls the entire render process
    * Should be called once per tick
    */
   def render(world: World) {
-    setCamera()
 
     drawBG()
+    if (bgRenderer != null)
+      bgRenderer()
 
     world.render()
-
-    //print("hi")
-
+    if (addRender != null)
+      addRender()
     drawGUI()
     Display.sync(30)
     Display.update()
@@ -63,19 +78,30 @@ class RenderControl (_gameSettings: GameSettings) {
       System.exit(0)
   }
 
+  /**
+   * Draw the GUI
+   */
   private def drawGUI (): Unit = {
     Game.g.GUIController.render()
   }
 
 
-  @throws(classOf[LWJGLException])
+  /**
+   * Initialise the openGL
+   * call once at start
+    */
   private def initGL() {
     Display.setDisplayMode(new DisplayMode(gameSettings.SCREEN_WIDTH, gameSettings.SCREEN_HEIGHT))
     Display.create()
     Display setTitle "TankWar"
+    setCamera()
   }
 
+  /**
+   * Sets up the camera
+   */
   private def setCamera() {
+
     GL11.glClearColor(1f, 1f, 1f, 1.0f)
     GL11.glClear(GL11.GL_COLOR_BUFFER_BIT)
     GL11.glMatrixMode(GL11.GL_PROJECTION)
@@ -87,18 +113,14 @@ class RenderControl (_gameSettings: GameSettings) {
     GL11.glMatrixMode(GL11.GL_MODELVIEW)
     GL11.glMatrixMode(GL11.GL_PROJECTION)
     GL11.glLoadIdentity()
-    GL11.glOrtho(0, Display.getWidth, 0, Display.getHeight, 1, -1)
+    GL11.glOrtho(0,gameSettings.SCREEN_WIDTH,gameSettings.SCREEN_HEIGHT, 0, 1, -1)
     GL11.glMatrixMode(GL11.GL_MODELVIEW)
     GL11.glLoadIdentity()
   }
 
-
-
-
-
-
-
-
+  /**
+   * Draw the background
+   */
   private def drawBG() {
     GL11.glPushMatrix ()
     GL11.glTranslated(0, 0, 0)
@@ -117,11 +139,28 @@ class RenderControl (_gameSettings: GameSettings) {
 
 }
 
+
+/**
+ * Contains static methods to make rendering easier
+ */
 object R {
+
+  private val rSettings = Game.g.renderer.gameSettings
+
+
+  /**
+   * Wrapper for glTranslated (x,y,x) for a Transform
+   * @param transform The transform to translate to
+   */
   def glTranslateT (transform: Transform): Unit = {
     GL11.glTranslated(transform.x, transform.y, transform.z)
   }
 
+  /**
+   * Draw an untextured quad
+   * @param transform - The box to draw
+   * @param color - The colour to draw it
+   */
   def glQuad (transform: Transform, color: Color3d): Unit = {
 
     GL11.glPushMatrix ()
@@ -139,6 +178,37 @@ object R {
       GL11.glEnd()
     GL11.glPopMatrix()
 
+  }
+
+  /**
+   * Draw text
+   * @param text - The text to render
+   * @param trueTypeFont - The font to use
+   * @param transform - Where to draw it
+   */
+  def glDrawText (text:String, trueTypeFont: TrueTypeFont, transform: Transform, color: Color3d = Color3d.WHITE): Unit = {
+    glEnableText()
+    trueTypeFont.drawString(transform.x.toInt, transform.y.toInt, text, color.toSlickColor())
+    glEnableDraw()
+  }
+
+  /**
+   * Enable drawing after text or textures
+   */
+  def glEnableDraw (): Unit = {
+    GL11.glDisable(GL11.GL_TEXTURE_2D)
+    GL11.glDisable(GL11.GL_BLEND)
+  }
+
+
+  private def glEnableText (): Unit = {
+    GL11.glEnable(GL11.GL_TEXTURE_2D)
+
+    GL11.glClearColor(1f,1f,1f,1.0f)
+
+    // enable alpha blending
+    GL11.glEnable(GL11.GL_BLEND)
+    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
   }
 
 }
