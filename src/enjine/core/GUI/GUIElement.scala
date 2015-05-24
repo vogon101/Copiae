@@ -1,5 +1,6 @@
 package enjine.core.GUI
 
+import enjine.core.Game
 import enjine.core.Graphics.Renderable
 
 /**
@@ -10,6 +11,11 @@ import enjine.core.Graphics.Renderable
  */
 abstract class GUIElement extends Renderable{
 
-  //TODO: Should this be a trait?
+  private var _index = Game.gui.elements.indexOf(this)
+
+  /**
+   * @return The index of this element in the world.gameobjects list
+   */
+  def index = _index
 
 }

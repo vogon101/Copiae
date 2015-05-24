@@ -1,7 +1,8 @@
 package enjine.core.GUI
 
 import enjine.core.DataStructures.TextStyles
-import enjine.core.Input.Input
+import enjine.core.Input.{Clickable, Input}
+import enjine.core.Updateable
 import org.lwjgl.input.Mouse
 
 import scala.collection.mutable.ArrayBuffer
@@ -15,12 +16,6 @@ import scala.collection.mutable.ArrayBuffer
  */
 class GUIController (var textStyles: TextStyles) {
 
-  //TODO: Merge buttons into elements then allow clickable elements that are not buttons
-
-  /**
-   * The ArrayBuffer of buttons - these are checked for clicks
-   */
-  val buttons: ArrayBuffer[ButtonControl] = new ArrayBuffer[ButtonControl]()
   /**
    * The ArrayBuffer of GUIElements - these are not checked for clicks but just rendered
    */
@@ -37,15 +32,26 @@ class GUIController (var textStyles: TextStyles) {
 
   /**
    * Update the GUI
-   * Checks for clicks on buttons
+   * Checks for clicks on Clickables and updates any elements that implement Updateable
    */
   def update(): Unit = {
+
+    //This runs an update function on all those elements that implement Updateable
+    elements.foreach(e => e match {
+        case e: Updateable => if (e.active) e.update()
+        case _ =>
+    })
+
 
     if (Mouse.isButtonDown(0)) {
       val mx = Input.mx
       val my = Input.my
 
-      buttons.foreach(b => b.checkClick(mx, my, 0))
+      //This runs check click on all GUIElements that implement Clickable
+      elements.foreach(e => e match {
+          case e: Clickable => e.checkClick(mx,my,0)
+          case _ =>
+      })
     }
   }
 
@@ -55,7 +61,6 @@ class GUIController (var textStyles: TextStyles) {
    */
   def render(): Unit = {
 
-    buttons.foreach(b => if (b.renderEnabled)b.render())
     elements.foreach(e => if (e.renderEnabled)e.render())
 
   }

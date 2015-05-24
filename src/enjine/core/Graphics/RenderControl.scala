@@ -186,9 +186,9 @@ object R {
    * @param trueTypeFont - The font to use
    * @param transform - Where to draw it
    */
-  def glDrawText (text:String, trueTypeFont: TrueTypeFont, transform: Transform): Unit = {
+  def glDrawText (text:String, trueTypeFont: TrueTypeFont, transform: Transform, color: Color3d = Color3d.WHITE): Unit = {
     glEnableText()
-    trueTypeFont.drawString(transform.x.toInt, transform.y.toInt, text)
+    trueTypeFont.drawString(transform.x.toInt, transform.y.toInt, text, color.toSlickColor())
     glEnableDraw()
   }
 

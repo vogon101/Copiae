@@ -1,6 +1,7 @@
 package enjine.core.DataStructures
 
 import org.lwjgl.opengl.GL11
+import org.newdawn.slick.Color
 
 /**
  * Created by Freddie on 19/05/2015.
@@ -18,6 +19,8 @@ class Color3d (val r:Double = 0, val g:Double = 0, val b:Double = 0) {
     GL11.glColor3d(r,g,b)
   }
 
+  def toSlickColor  : Color = new Color(r.toFloat, g.toFloat, b.toFloat)
+
 }
 
 /**
@@ -30,5 +33,6 @@ object Color3d {
   val BLACK = new Color3d(0,0,0)
   val LIGHT_GREY = new Color3d(0.8,0.8,0.8)
   val DARK_GREY = new Color3d(0.2,0.2,0.2)
+  val WHITE = new Color3d(1,1,1)
 
 }

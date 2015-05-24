@@ -1,7 +1,5 @@
 package enjine.core
 
-import org.lwjgl.input.Mouse
-
 import scala.collection.mutable.ArrayBuffer
 
 /**
@@ -32,6 +30,13 @@ class World {
   /**
    * Update all the gameobjects in the screen
    */
-  def update () {gameObjects.foreach(go => go.update())}
+  def update () {gameObjects.foreach(go => if (go.active)go.update()); addUpdate()}
+
+  /**
+   * Override this to add additional update functionality
+   */
+  def addUpdate (): Unit = {
+
+  }
 
 }

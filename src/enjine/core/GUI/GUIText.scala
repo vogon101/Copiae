@@ -18,17 +18,23 @@ import org.newdawn.slick.TrueTypeFont
  */
 class GUIText(var text: String, var font: TrueTypeFont, var transform: Transform, private val _color: Color3d) extends GUIElement{
 
-  //TODO:Clickable text
-  //TODO:Track object text (HP)
+  //Done:Clickable text
+
+  //TODO:Intergrate different types of text into one class?
+  //TODO: Text static builder
+  //DONE: Give elements their index in array
+  //TODO: On change of array check element's index
 
   color = _color
 
-  def this (obj: Object, font: TrueTypeFont, transform: Transform) {
-    this (obj.toString, font, transform, null)
+  def this (obj: Any, font: TrueTypeFont, transform: Transform, color3d: Color3d) {
+    this (obj.toString, font, transform, color3d)
   }
+
+  //DONE: Implement colour
 
   /**
    * Render the text
    */
-  def render (): Unit = {R.glDrawText(text, font,transform)}
+  def render (): Unit = {R.glDrawText(text, font,transform, color)}
 }

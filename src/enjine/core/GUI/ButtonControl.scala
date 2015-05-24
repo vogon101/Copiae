@@ -1,7 +1,7 @@
 package enjine.core.GUI
 
 import enjine.core.DataStructures.Color3d
-import enjine.core.Graphics.{R, Renderable}
+import enjine.core.Graphics.R
 import enjine.core.Input.Clickable
 import enjine.core.Transform
 
@@ -17,7 +17,7 @@ import enjine.core.Transform
  */
 class ButtonControl (val transform: Transform, private val _action: (Int)=> Unit, private val _color: Color3d) extends GUIElement with Clickable {
 
-  //TODO:Add timing on buttons
+  //DONE:Add timing on buttons
 
   color = _color
   /**
