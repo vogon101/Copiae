@@ -1,6 +1,7 @@
 package com.vogon101.copiae.game
 
 import enjine.core.{World, Game}
+import enjine.tile.TileWorld
 
 /**
  * Created by Freddie on 19/05/2015.
@@ -15,7 +16,7 @@ object CopiaeGameMain {
   def main (args: Array[String]) {
 
     //Set the game world to a custom class extending World
-    game.world = new TestWorld()
+    game.world = new TestWorld2()
 
     //Start the game
     game.start()

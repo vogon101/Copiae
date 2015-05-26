@@ -25,10 +25,12 @@ class ButtonControl (val transform: Transform, private val _action: (Int)=> Unit
    */
   var action = _action
 
+  //TODO: Allow texturedi GUIElements
+
   /**
    * Render the button
    */
-  override def render (): Unit = {R.glQuad(transform,color)}
+  override def render (): Unit = {R.glQuad(transform,color, null)}
 
   /**
    * See if a click is in the button, if so run action

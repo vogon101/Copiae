@@ -12,12 +12,12 @@ import org.lwjgl.opengl.GL11
  * Class for a tile in a tile-based map
  *
  */
-class Tile(val tileType:TileType, transform: Transform) extends GameObject(transform, tileType.color){
+class Tile(val tileType:TileType, private val _transform: Transform, val x: Int, val y: Int) extends GameObject(_transform, tileType.color, tileType.texture){
 
   /**
    * Render the tile
    */
-  override def render(): Unit = R.glQuad(transform, color)
+  override def render(): Unit = R.glDrawQuadTextured(transform, tileType.texture)
 
   /**
    * Update the tile

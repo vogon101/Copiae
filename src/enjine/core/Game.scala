@@ -50,7 +50,7 @@ class Game {
 
     GUIController.init()
 
-    Game.init(this, GUIController, world)
+    Game.init(this, renderer, GUIController, world)
     world.start()
 
     mainloop()
@@ -88,12 +88,18 @@ class Game {
 object Game {
   private var _g:Game = null
   private var _gui:GUIController = null
+  private var _renderControl:RenderControl = null
   private var _world:World = null
 
   /**
    * @return The current world instance
    */
   def w = _world
+
+  /**
+   * @return The current RenderControl
+   */
+  def r = _renderControl
 
   /**
    * Set the world in both the current game instance and in the Game static object
@@ -111,8 +117,11 @@ object Game {
    * @return The current GUIController instance
    */
   def gui = _gui
-  def init (game: Game, GUIController: GUIController, world: World) {
+
+  //TODO: Make sure that when world changes, this changes
+  def init (game: Game, renderControl: RenderControl, GUIController: GUIController, world: World) {
     if (g==null)_g = game
     if (gui == null)_gui = GUIController
+    if (r == null) _renderControl = renderControl
     _world = world}
 }

@@ -1,5 +1,7 @@
 package enjine.core
 
+import enjine.core.Graphics.Textures
+
 import scala.collection.mutable.ArrayBuffer
 
 /**
@@ -19,8 +21,13 @@ class World {
    * Initialise the world
    */
   def start (): Unit = {
-
+    addStart()
   }
+
+  /**
+   * Additional start operations
+   */
+  def addStart () {}
 
   /**
    * Render all the gameobjects
