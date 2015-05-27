@@ -3,6 +3,7 @@ package enjine.core
 import enjine.core.DataStructures.TextStyles
 import enjine.core.GUI.GUIController
 import enjine.core.Graphics.RenderControl
+import enjine.core.Input.KeyboardManager
 import enjine.core.Settings.GameSettings
 import enjine.core.Utils.Time
 
@@ -34,6 +35,8 @@ class Game {
    * The GUIController to uses
    */
   var GUIController = new GUIController(new TextStyles)
+
+  val keyboardManager: KeyboardManager = new KeyboardManager
 
   //var paused: Boolean = true
 
@@ -75,8 +78,11 @@ class Game {
   protected def update(): Unit = {
     Time.update()
     renderer.render(world)
+    keyboardManager.update()
     world.update()
     GUIController.update()
+
+
 
   }
 

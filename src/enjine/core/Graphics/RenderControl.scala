@@ -157,6 +157,10 @@ object R {
     GL11.glTranslated(transform.x, transform.y, transform.z)
   }
 
+  def glTranslateTOffset (transform: Transform): Unit = {
+    GL11.glTranslated(transform.x+Game.w.xOffset, transform.y+Game.w.yOffset, transform.z)
+  }
+
   def glQuad (transform: Transform, color3d: Color3d, texture: Texture): Unit = {
     if (texture != null) {
       glDrawQuadTextured(transform,texture,color3d)
@@ -174,7 +178,7 @@ object R {
   def glDrawQuadUntextured (transform: Transform, color: Color3d): Unit = {
 
     GL11.glPushMatrix ()
-      glTranslateT(transform)
+      glTranslateTOffset(transform)
 
       if (color != null)
         color.bind()
@@ -218,7 +222,7 @@ object R {
         texture.bind()
         if (color3d != null)
           color3d.bind()
-        glTranslateT(transform)
+        glTranslateTOffset(transform)
 
         GL11.glBegin(GL11.GL_QUADS)
           GL11.glTexCoord2f(0,0)

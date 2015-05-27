@@ -17,6 +17,9 @@ class World {
    */
   val gameObjects: ArrayBuffer[GameObject] = new ArrayBuffer[GameObject]()
 
+  var xOffset = 0
+  var yOffset = 0
+
   /**
    * Initialise the world
    */
