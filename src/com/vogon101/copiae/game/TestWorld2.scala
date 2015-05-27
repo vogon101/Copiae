@@ -19,6 +19,8 @@ class TestWorld2 extends TileWorld{
     Game.g.keyboardManager.addListener(new KeyboardListener(Keyboard.KEY_S, () => {Game.w.yOffset -= 5;}))
     Game.g.keyboardManager.addListener(new KeyboardListener(Keyboard.KEY_A, () => {Game.w.xOffset += 5;}))
     Game.g.keyboardManager.addListener(new KeyboardListener(Keyboard.KEY_D, () => {Game.w.xOffset -= 5;}))
+    Game.g.keyboardManager.addListener(new KeyboardListener(Keyboard.KEY_Y, () => {println("Key Pressed")}, true, true))
+    Game.g.keyboardManager.addListener(new KeyboardListener(Keyboard.KEY_Y, () => {println("Key Released")}, true, false))
 
   }
 

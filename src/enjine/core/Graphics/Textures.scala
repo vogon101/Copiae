@@ -8,8 +8,12 @@ import org.newdawn.slick.util.ResourceLoader
 /**
  * Created by Freddie on 26/05/2015.
  *
+ * Contains textures to use in the game
+ *
  */
 object Textures {
+
+  //TODO: Sprite sheets
 
   val GRASS: Texture = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("./res/grass.jpg"))
   val UNIT: Texture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("./res/unit.png"))

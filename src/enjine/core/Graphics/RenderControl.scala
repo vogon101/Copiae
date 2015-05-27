@@ -157,10 +157,20 @@ object R {
     GL11.glTranslated(transform.x, transform.y, transform.z)
   }
 
+  /**
+   * Wrapper for glTranslated (x,y,z) for a transform, taking into account the offset found in the current world, allows map moving
+   * @param transform The transform to translate to
+   */
   def glTranslateTOffset (transform: Transform): Unit = {
     GL11.glTranslated(transform.x+Game.w.xOffset, transform.y+Game.w.yOffset, transform.z)
   }
 
+  /**
+   * Draw a quad, can be textured or not, will draw as textured if the texture argument is not null
+   * @param transform - Where to draw it
+   * @param color3d - The colour to draw it
+   * @param texture - The texture to draw it
+   */
   def glQuad (transform: Transform, color3d: Color3d, texture: Texture): Unit = {
     if (texture != null) {
       glDrawQuadTextured(transform,texture,color3d)
@@ -214,6 +224,12 @@ object R {
     GL11.glDisable(GL11.GL_BLEND)
   }
 
+  /**
+   * Draw a textured quad
+   * @param transform - Where to draw it
+   * @param texture - What texture to draw it
+   * @param color3d - What colour to draw it
+   */
   def glDrawQuadTextured (transform: Transform, texture: Texture, color3d: Color3d = Color3d.WHITE): Unit = {
 
     GL11.glPushMatrix()

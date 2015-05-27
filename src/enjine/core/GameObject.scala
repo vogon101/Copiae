@@ -22,6 +22,9 @@ abstract  class GameObject (val transform: Transform, private val _color: Color3
   require(color != null || texture != null)
 
   //TODO:Check for changes in array and update accordingly
+  /**
+   * The index of the object in the array buffer of gameobjects
+   */
   protected var _index = Game.g.world.gameObjects.indexOf(this)
   /**
    * The index of the GO in the gameObjects array in the world

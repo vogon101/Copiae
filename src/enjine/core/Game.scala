@@ -36,6 +36,9 @@ class Game {
    */
   var GUIController = new GUIController(new TextStyles)
 
+  /**
+   * The current keyboard manager to run all keyboard input
+   */
   val keyboardManager: KeyboardManager = new KeyboardManager
 
   //var paused: Boolean = true
