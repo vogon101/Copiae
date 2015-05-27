@@ -8,13 +8,13 @@ import enjine.core.{GameObject, Transform}
  * Created by Freddie on 24/05/2015.
  *
  */
-class BanterObject(private val _transform: Transform, private val _color: Color3d, var target: BanterObject) extends GameObject (_transform, _color){
+class BanterObject(private val _transform: Transform, private val _color: Color3d, var target: BanterObject) extends GameObject (_transform, _color, null){
 
   def update (): Unit = {
     if (target != null)
       transform.moveTowards(target.transform, 1)
   }
 
-  def render (): Unit = R.glQuad(transform, color)
+  def render (): Unit = R.glQuad(transform, color, texture)
 
 }

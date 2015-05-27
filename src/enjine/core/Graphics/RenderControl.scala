@@ -6,6 +6,7 @@ import enjine.core.{Game, Transform, World}
 import org.lwjgl.LWJGLException
 import org.lwjgl.opengl.{Display, DisplayMode, GL11}
 import org.newdawn.slick.TrueTypeFont
+import org.newdawn.slick.opengl.Texture
 
 /**
  * Created by Freddie on 19/05/2015.
@@ -18,7 +19,7 @@ class RenderControl (_gameSettings: GameSettings) {
 
   //DONE:Make additional render Unit based
   //DONE:Make DrawBG Unit based
-  //TODO:Allow texture rendering
+  //DONE:Allow texture rendering
 
   /**
    * Use this to render additional background
@@ -45,8 +46,6 @@ class RenderControl (_gameSettings: GameSettings) {
       case e : LWJGLException => println("Could not start Graphics"); System exit 1
     }
 
-
-
     setCamera()
   }
 
@@ -60,6 +59,8 @@ class RenderControl (_gameSettings: GameSettings) {
    * Should be called once per tick
    */
   def render(world: World) {
+
+    R.glEnableDraw()
 
     drawBG()
     if (bgRenderer != null)
@@ -157,14 +158,37 @@ object R {
   }
 
   /**
+   * Wrapper for glTranslated (x,y,z) for a transform, taking into account the offset found in the current world, allows map moving
+   * @param transform The transform to translate to
+   */
+  def glTranslateTOffset (transform: Transform): Unit = {
+    GL11.glTranslated(transform.x+Game.w.xOffset, transform.y+Game.w.yOffset, transform.z)
+  }
+
+  /**
+   * Draw a quad, can be textured or not, will draw as textured if the texture argument is not null
+   * @param transform - Where to draw it
+   * @param color3d - The colour to draw it
+   * @param texture - The texture to draw it
+   */
+  def glQuad (transform: Transform, color3d: Color3d, texture: Texture): Unit = {
+    if (texture != null) {
+      glDrawQuadTextured(transform,texture,color3d)
+    }
+    else {
+      glDrawQuadUntextured(transform, color3d)
+    }
+  }
+
+  /**
    * Draw an untextured quad
    * @param transform - The box to draw
    * @param color - The colour to draw it
    */
-  def glQuad (transform: Transform, color: Color3d): Unit = {
+  def glDrawQuadUntextured (transform: Transform, color: Color3d): Unit = {
 
     GL11.glPushMatrix ()
-      glTranslateT(transform)
+      glTranslateTOffset(transform)
 
       if (color != null)
         color.bind()
@@ -188,7 +212,7 @@ object R {
    */
   def glDrawText (text:String, trueTypeFont: TrueTypeFont, transform: Transform, color: Color3d = Color3d.WHITE): Unit = {
     glEnableText()
-    trueTypeFont.drawString(transform.x.toInt, transform.y.toInt, text, color.toSlickColor())
+    trueTypeFont.drawString(transform.x.toInt, transform.y.toInt, text, color.toSlickColor)
     glEnableDraw()
   }
 
@@ -199,6 +223,42 @@ object R {
     GL11.glDisable(GL11.GL_TEXTURE_2D)
     GL11.glDisable(GL11.GL_BLEND)
   }
+
+  /**
+   * Draw a textured quad
+   * @param transform - Where to draw it
+   * @param texture - What texture to draw it
+   * @param color3d - What colour to draw it
+   */
+  def glDrawQuadTextured (transform: Transform, texture: Texture, color3d: Color3d = Color3d.WHITE): Unit = {
+
+    GL11.glPushMatrix()
+
+      glEnableText()
+        texture.bind()
+        if (color3d != null)
+          color3d.bind()
+        glTranslateTOffset(transform)
+
+        GL11.glBegin(GL11.GL_QUADS)
+          GL11.glTexCoord2f(0,0)
+          GL11.glVertex2f(0,0)
+          GL11.glTexCoord2f(0,1)
+          GL11.glVertex2d(0, transform.ySize)
+          GL11.glTexCoord2f(1,1)
+          GL11.glVertex2d(transform.xSize, transform.ySize)
+          GL11.glTexCoord2f(1,0)
+          GL11.glVertex2d(transform.xSize, 0)
+        GL11.glEnd()
+      glEnableDraw()
+
+    GL11.glPopMatrix()
+  }
+
+  //private def glEnableTexture (): Unit = {
+  //  glEnableDraw()
+  //  GL11.glEnable(GL11.GL_TEXTURE_2D)
+  //}
 
 
   private def glEnableText (): Unit = {

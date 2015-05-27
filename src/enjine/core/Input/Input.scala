@@ -10,6 +10,8 @@ import org.lwjgl.opengl.Display
  */
 object Input {
 
+  //TODO: Offset mouse clicks
+
   /**
    * Get the mouse X position
    * @return mouse X position

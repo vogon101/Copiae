@@ -3,6 +3,7 @@ package enjine.core
 import enjine.core.DataStructures.TextStyles
 import enjine.core.GUI.GUIController
 import enjine.core.Graphics.RenderControl
+import enjine.core.Input.KeyboardManager
 import enjine.core.Settings.GameSettings
 import enjine.core.Utils.Time
 
@@ -35,6 +36,11 @@ class Game {
    */
   var GUIController = new GUIController(new TextStyles)
 
+  /**
+   * The current keyboard manager to run all keyboard input
+   */
+  val keyboardManager: KeyboardManager = new KeyboardManager
+
   //var paused: Boolean = true
 
 
@@ -50,7 +56,7 @@ class Game {
 
     GUIController.init()
 
-    Game.init(this, GUIController, world)
+    Game.init(this, renderer, GUIController, world)
     world.start()
 
     mainloop()
@@ -75,8 +81,11 @@ class Game {
   protected def update(): Unit = {
     Time.update()
     renderer.render(world)
+    keyboardManager.update()
     world.update()
     GUIController.update()
+
+
 
   }
 
@@ -88,12 +97,18 @@ class Game {
 object Game {
   private var _g:Game = null
   private var _gui:GUIController = null
+  private var _renderControl:RenderControl = null
   private var _world:World = null
 
   /**
    * @return The current world instance
    */
   def w = _world
+
+  /**
+   * @return The current RenderControl
+   */
+  def r = _renderControl
 
   /**
    * Set the world in both the current game instance and in the Game static object
@@ -111,8 +126,11 @@ object Game {
    * @return The current GUIController instance
    */
   def gui = _gui
-  def init (game: Game, GUIController: GUIController, world: World) {
+
+  //TODO: Make sure that when world changes, this changes
+  def init (game: Game, renderControl: RenderControl, GUIController: GUIController, world: World) {
     if (g==null)_g = game
     if (gui == null)_gui = GUIController
+    if (r == null) _renderControl = renderControl
     _world = world}
 }

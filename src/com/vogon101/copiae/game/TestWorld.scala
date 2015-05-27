@@ -16,12 +16,14 @@ class TestWorld extends World{
 
   var number: Int = 0
 
-  /**
-   * Override the start method to create your own game init
-   */
-  override def start (): Unit = {
+  //TODO: Nicer appends to game ArrayBuffers
 
-    gameObjects.append(new Tile(new TileType(new Color3d(0,1,0), "Grass") ,new Transform(10,10,10,10, 0)))
+  /**
+   * Override the addStart method to create your own game init
+   */
+  override def addStart (): Unit = {
+
+    // gameObjects.append(new Tile(new TileType(new Color3d(0,1,0), "Grass") ,new Transform(10,10,10,10, 0)))
     Game.g.GUIController.elements.append(
       new TimedButtonControl(
         new Transform(100,100,100,100),
