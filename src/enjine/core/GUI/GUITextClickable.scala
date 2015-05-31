@@ -18,8 +18,8 @@ class GUITextClickable(var _text: String,
                        var _transform: Transform,
                        private val _color: Color3d,
                        override var action: (Int) => Unit)
-  extends GUIText(_text,_font,_transform ,_color)
-  with Clickable{
+  extends GUIText(_text, _font, _transform, _color)
+  with Clickable {
 
   /**
    * Checks if the click is within the clickable area, if so, runs the action
@@ -27,8 +27,8 @@ class GUITextClickable(var _text: String,
    * @param my - Mouse Y
    * @param mb - Mouse Button
    */
-  def checkClick (mx: Int, my: Int, mb:Int): Unit = {
-    if (transform.pointInside(mx,my)) {
+  def checkClick(mx: Int, my: Int, mb: Int): Unit = {
+    if (transform.pointInside(mx, my)) {
       action(mb)
     }
   }

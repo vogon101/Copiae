@@ -19,6 +19,9 @@ class Color3d (val r:Double = 0, val g:Double = 0, val b:Double = 0) {
     GL11.glColor3d(r,g,b)
   }
 
+  /**
+   * @return This colour as a Slick2D color
+   */
   def toSlickColor  : Color = new Color(r.toFloat, g.toFloat, b.toFloat)
 
 }

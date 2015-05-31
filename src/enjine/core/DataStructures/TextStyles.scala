@@ -25,5 +25,4 @@ class TextStyles {
     STANDARD = new TrueTypeFont(JFont, false)
   }
 
-
 }
