@@ -3,8 +3,8 @@ package com.vogon101.copiae.game
 import enjine.core.DataStructures.Color3d
 import enjine.core.GUI._
 import enjine.core.{Game, Transform, World}
-import enjine.tile.Tile
-import enjine.tile.data.TileType
+
+
 
 /**
  * Created by Freddie on 23/05/2015.
@@ -17,6 +17,7 @@ class TestWorld extends World{
   var number: Int = 0
 
   //TODO: Nicer appends to game ArrayBuffers
+  //TODO: Gen docs?
 
   /**
    * Override the addStart method to create your own game init

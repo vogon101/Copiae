@@ -1,5 +1,6 @@
 package enjine.core.Input
 
+import enjine.core.Game
 import org.lwjgl.input.Mouse
 import org.lwjgl.opengl.Display
 
@@ -23,5 +24,11 @@ object Input {
    * @return mouse Y position
    */
   def my =Display.getHeight-  Mouse.getY
+
+  def mxo = mx + Game.w.xOffset
+  def myo = my + Game.w.yOffset
+
+  def XtoOffset (x: Int) = x+Game.w.xOffset
+  def YtoOffset (y: Int) = Display.getHeight -y+Game.w.yOffset
 
 }

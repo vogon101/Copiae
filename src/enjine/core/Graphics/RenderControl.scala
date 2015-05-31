@@ -162,7 +162,7 @@ object R {
    * @param transform The transform to translate to
    */
   def glTranslateTOffset (transform: Transform): Unit = {
-    GL11.glTranslated(transform.x+Game.w.xOffset, transform.y+Game.w.yOffset, transform.z)
+    GL11.glTranslated(transform.x-Game.w.xOffset, transform.y-Game.w.yOffset, transform.z)
   }
 
   /**

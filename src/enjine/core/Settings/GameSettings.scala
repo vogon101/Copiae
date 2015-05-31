@@ -8,7 +8,7 @@ package enjine.core.Settings
  */
 class GameSettings {
 
-  val MAX_FPS = 30
+  val MAX_FPS = 60
   val SCREEN_WIDTH = 16*70
   val SCREEN_HEIGHT = 9*70
 
