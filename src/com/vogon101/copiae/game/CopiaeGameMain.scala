@@ -1,7 +1,7 @@
 package com.vogon101.copiae.game
 
-import enjine.core.{World, Game}
-import enjine.tile.TileWorld
+import enjine.core.Settings.GameSettings
+import enjine.core.Game
 
 /**
  * Created by Freddie on 19/05/2015.
@@ -11,7 +11,7 @@ import enjine.tile.TileWorld
  */
 object CopiaeGameMain {
 
-  private val game: Game  = new Game()
+  private val game: Game  = new Game(new GameSettings)
 
   def main (args: Array[String]) {
 

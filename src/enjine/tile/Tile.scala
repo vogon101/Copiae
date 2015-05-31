@@ -14,10 +14,13 @@ import org.lwjgl.opengl.GL11
  */
 class Tile(val tileType:TileType, private val _transform: Transform, val x: Int, val y: Int) extends GameObject(_transform, tileType.color, tileType.texture){
 
+  texture = tileType.texture
+
+
   /**
    * Render the tile
    */
-  override def render(): Unit = R.glDrawQuadTextured(transform, tileType.texture)
+  override def render(): Unit = R.glDrawQuadTextured(transform, texture)
 
   /**
    * Update the tile

@@ -1,6 +1,8 @@
 package enjine.core
 
 import enjine.core.Graphics.Textures
+import enjine.core.Input.MouseManager
+import enjine.core.Utils.Time
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -19,6 +21,8 @@ class World {
 
   var xOffset = 0
   var yOffset = 0
+
+  val mouseManager: MouseManager = new MouseManager
 
   /**
    * Initialise the world
@@ -40,7 +44,12 @@ class World {
   /**
    * Update all the gameobjects in the screen
    */
-  def update () {gameObjects.foreach(go => if (go.active)go.update()); addUpdate()}
+  def update () {
+    gameObjects.foreach(go => if (go.active)go.update())
+    mouseManager.update()
+    addUpdate()
+    //println(Time.deltaTime)
+  }
 
   /**
    * Override this to add additional update functionality

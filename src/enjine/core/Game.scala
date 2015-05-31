@@ -13,12 +13,12 @@ import enjine.core.Utils.Time
  * The main class that runs everyting
  *
  */
-class Game {
+class Game (val gameSettings: GameSettings){
 
   /**
    * The render that is in charge of all rendering
    */
-  val renderer: RenderControl = new RenderControl(new GameSettings)
+  val renderer: RenderControl = new RenderControl(gameSettings)
 
   /**
    * Is the game running
