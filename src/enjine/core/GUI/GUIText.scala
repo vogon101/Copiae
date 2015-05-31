@@ -23,7 +23,7 @@ class GUIText(var text: String, var font: TrueTypeFont, var transform: Transform
   //TODO:Intergrate different types of text into one class?
   //TODO: Text static builder
   //DONE: Give elements their index in array
-  //TODO: On change of array check element's index
+  //DONE: On change of array check element's index
 
   color = _color
 

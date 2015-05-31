@@ -16,7 +16,7 @@ class TestWorld extends World{
 
   var number: Int = 0
 
-  //TODO: Nicer appends to game ArrayBuffers
+  //DONE: Nicer appends to game ArrayBuffers
   //TODO: Gen docs?
 
   /**
@@ -45,8 +45,8 @@ class TestWorld extends World{
         Color3d.RED,
         (mb:Int) => {println("I am clickable")}))
 
-    var a: BanterObject = new BanterObject(new Transform(200,100,30,10), Color3d.RED, null)
-    var b: BanterObject = new BanterObject(new Transform(900,400,30,10), Color3d.WHITE, null)
+    val a: BanterObject = new BanterObject(new Transform(200,100,30,10), Color3d.RED, null)
+    val b: BanterObject = new BanterObject(new Transform(900,400,30,10), Color3d.WHITE, null)
 
     gameObjects.append(a)
     gameObjects.append(b)

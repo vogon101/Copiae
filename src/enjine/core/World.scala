@@ -58,4 +58,8 @@ class World {
 
   }
 
+  def gameObject (i: Int) = gameObjects.apply(i)
+
+  def addGO (gameObject: GameObject) = gameObjects.append(gameObject)
+
 }
