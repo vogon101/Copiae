@@ -107,14 +107,14 @@ class RenderControl (_gameSettings: GameSettings) {
     GL11.glClear(GL11.GL_COLOR_BUFFER_BIT)
     GL11.glMatrixMode(GL11.GL_PROJECTION)
     GL11.glLoadIdentity()
-    GL11.glOrtho(0, gameSettings.SCREEN_WIDTH, 0, gameSettings.SCREEN_HEIGHT, -1, 1)
+    GL11.glOrtho(0, gameSettings.SCREEN_WIDTH, 0, gameSettings.SCREEN_HEIGHT, 5, -1)
     GL11.glMatrixMode(GL11.GL_MODELVIEW)
     GL11.glLoadIdentity()
     GL11.glViewport(0, 0, gameSettings.SCREEN_WIDTH, gameSettings.SCREEN_HEIGHT)
     GL11.glMatrixMode(GL11.GL_MODELVIEW)
     GL11.glMatrixMode(GL11.GL_PROJECTION)
     GL11.glLoadIdentity()
-    GL11.glOrtho(0,gameSettings.SCREEN_WIDTH,gameSettings.SCREEN_HEIGHT, 0, 1, -1)
+    GL11.glOrtho(0,gameSettings.SCREEN_WIDTH,gameSettings.SCREEN_HEIGHT, 0, 5, -5)
     GL11.glMatrixMode(GL11.GL_MODELVIEW)
     GL11.glLoadIdentity()
   }
@@ -140,6 +140,7 @@ class RenderControl (_gameSettings: GameSettings) {
 
 }
 
+//TODO: ALL GUI ELEMENTS NO OFFSET!!!
 
 /**
  * Contains static methods to make rendering easier
@@ -171,12 +172,12 @@ object R {
    * @param color3d - The colour to draw it
    * @param texture - The texture to draw it
    */
-  def glQuad (transform: Transform, color3d: Color3d, texture: Texture): Unit = {
+  def glQuad (transform: Transform, color3d: Color3d, texture: Texture, isOffset: Boolean = true): Unit = {
     if (texture != null) {
-      glDrawQuadTextured(transform,texture,color3d)
+      glDrawQuadTextured(transform,texture,color3d, isOffset)
     }
     else {
-      glDrawQuadUntextured(transform, color3d)
+      glDrawQuadUntextured(transform, color3d, isOffset)
     }
   }
 
@@ -185,10 +186,13 @@ object R {
    * @param transform - The box to draw
    * @param color - The colour to draw it
    */
-  def glDrawQuadUntextured (transform: Transform, color: Color3d): Unit = {
+  def glDrawQuadUntextured (transform: Transform, color: Color3d, offset:Boolean): Unit = {
 
     GL11.glPushMatrix ()
-      glTranslateTOffset(transform)
+      if (offset)
+        glTranslateTOffset(transform)
+      else
+        glTranslateT(transform)
 
       if (color != null)
         color.bind()
@@ -204,15 +208,20 @@ object R {
 
   }
 
+
   /**
    * Draw text
    * @param text - The text to render
    * @param trueTypeFont - The font to use
    * @param transform - Where to draw it
    */
-  def glDrawText (text:String, trueTypeFont: TrueTypeFont, transform: Transform, color: Color3d = Color3d.WHITE): Unit = {
+  def glDrawText (text:String, trueTypeFont: TrueTypeFont, transform: Transform, color: Color3d = Color3d.WHITE, isOffset: Boolean = false): Unit = {
     glEnableText()
-    trueTypeFont.drawString(transform.x.toInt, transform.y.toInt, text, color.toSlickColor)
+    if (isOffset)
+      throw new NotImplementedError("NOT DONE YET. Come back later...")
+      //trueTypeFont.drawString(transform.x.toInt+Game.w.xOffset, transform.y.toInt+Game.w.yOffset, text, color.toSlickColor)
+    else
+      trueTypeFont.drawString(transform.x.toInt, transform.y.toInt, text, color.toSlickColor)
     glEnableDraw()
   }
 
@@ -230,7 +239,7 @@ object R {
    * @param texture - What texture to draw it
    * @param color3d - What colour to draw it
    */
-  def glDrawQuadTextured (transform: Transform, texture: Texture, color3d: Color3d = Color3d.WHITE): Unit = {
+  def glDrawQuadTextured (transform: Transform, texture: Texture, color3d: Color3d = Color3d.WHITE, offset: Boolean = true): Unit = {
 
     GL11.glPushMatrix()
 
@@ -238,7 +247,10 @@ object R {
         texture.bind()
         if (color3d != null)
           color3d.bind()
-        glTranslateTOffset(transform)
+        if (offset)
+          glTranslateTOffset(transform)
+        else
+          glTranslateT(transform)
 
         GL11.glBegin(GL11.GL_QUADS)
           GL11.glTexCoord2f(0,0)

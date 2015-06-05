@@ -28,6 +28,8 @@ object Input {
   def mxo = mx + Game.w.xOffset
   def myo = my + Game.w.yOffset
 
+  def YtoUseable(y: Int) = Display.getHeight -y
+
   def XtoOffset (x: Int) = x+Game.w.xOffset
   def YtoOffset (y: Int) = Display.getHeight -y+Game.w.yOffset
 

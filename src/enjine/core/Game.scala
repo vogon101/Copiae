@@ -94,11 +94,8 @@ class Game (val gameSettings: GameSettings){
     Time.update()
     renderer.render(world)
     keyboardManager.update()
-    world.update()
     GUIController.update()
-
-
-
+    world.update()
   }
 
 }

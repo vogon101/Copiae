@@ -22,6 +22,8 @@ class TileBasedUnit(private val _transform: Transform,
                     private var _y: Int)
   extends GameObject(_transform, unitType.color, unitType.texture){
 
+  transform.z = 1
+
   /**
    * @return The tile x position of the unit (In the grid of tiles)
    */
@@ -54,7 +56,7 @@ class TileBasedUnit(private val _transform: Transform,
   /**
    * Render the unit
    */
-  def render() = R.glQuad(transform, color, texture)
+  def render= R.glQuad(transform, color, texture)
 
   /**
    * Update the unit

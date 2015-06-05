@@ -37,22 +37,10 @@ class GUIController (var textStyles: TextStyles) {
   def update(): Unit = {
 
     //This runs an update function on all those elements that implement Updateable
-    elements.foreach(e => e match {
+    elements.foreach({
         case e: Updateable => if (e.active) e.update()
         case _ =>
     })
-
-
-    if (Mouse.isButtonDown(0)) {
-      val mx = Input.mx
-      val my = Input.my
-
-      //This runs check click on all GUIElements that implement Clickable
-      elements.foreach(e => e match {
-          case e: Clickable => e.checkClick(mx,my,0)
-          case _ =>
-      })
-    }
   }
 
   /**
@@ -60,9 +48,11 @@ class GUIController (var textStyles: TextStyles) {
    * Both elements and buttons rendered
    */
   def render(): Unit = {
-
-    elements.foreach(e => if (e.renderEnabled)e.render())
-
+    elements.foreach(e => if (e.renderEnabled)e.render)
   }
+
+  def addElement (guiElement: GUIElement): Int = {elements.append(guiElement); elements.indexOf(guiElement)}
+
+  def element (i: Int) = elements.apply(i)
 
 }

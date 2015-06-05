@@ -1,9 +1,11 @@
 package com.vogon101.copiae.game
 
+import enjine.core.DataStructures.Color3d
+import enjine.core.GUI.Components._
 import enjine.core.Input.{MouseListener, Input, KeyboardListener}
 import enjine.core.{Transform, Game}
 import enjine.tile.data.UnitType
-import enjine.tile.{TileBasedUnit, TileWorld}
+import enjine.tile.{ClickableTile, TileBasedUnit, TileWorld}
 import org.lwjgl.input.{Mouse, Keyboard}
 
 /**
@@ -11,6 +13,8 @@ import org.lwjgl.input.{Mouse, Keyboard}
  *
  */
 class TestWorld2 extends TileWorld{
+
+  var number = 0
 
   override def addStart (): Unit = {
 
@@ -25,11 +29,47 @@ class TestWorld2 extends TileWorld{
     val y =mouseManager.addListener(new MouseListener(new Transform(0,0,100,100), (mx:Int, my:Int, mb: Int) => {println("click")}, 1))
     mouseManager.listener(y).checkClick(10,10,0)
 
-    println(tiles(0)(0).transform)
+    println(tiles(0)(0))
+    tiles(0)(0).asInstanceOf[ClickableTile].listener = new MouseListener(tiles(0)(0).transform, (mx:Int, my:Int, mb: Int) => {println("This is tile 00")})
+    tiles(0)(0).transform.z = 2
+
+    Game.gui.addElement(new GUIPanel(
+      new Transform(0,Game.r.gameSettings.SCREEN_HEIGHT-200,300,Game.r.gameSettings.SCREEN_HEIGHT),
+      Color3d.LIGHT_GREY))
+
+    Game.g.GUIController.elements.append(
+      new GUITimedButtonControl(
+        new Transform(100,100,100,100),
+        (mx:Int, my:Int, mb:Int) => {println("Timedbutton")},
+        Color3d.RED,
+        500))
+
+    Game.g.GUIController.elements.append(
+      new GUITextObjTracker(() => number,
+        Game.g.GUIController.textStyles.STANDARD,
+        new Transform(300,300,10,10),
+        Color3d.BLUE))
+
+    Game.gui.elements.append(
+      new GUIText("Banter",
+        Game.gui.textStyles.STANDARD,
+        new Transform(400,400,100,100),
+        Color3d.RED,
+        Color3d.BLACK,
+        true))
 
   }
 
+  //DONE: Priority clicks
+
   override def addUpdate(): Unit = {
+
+    number += 1
+
+    //println(Game.gui.element(0).transform.z)
+
+    //println(mouseManager.listeners.length)
+
     //gameObjects.apply(0).asInstanceOf[TileBasedUnit].moveTo(gameObjects.apply(0).asInstanceOf[TileBasedUnit].x+1, gameObjects.apply(0).asInstanceOf[TileBasedUnit].y+1)
 
     //if (Mouse.isButtonDown(0)) {
@@ -39,5 +79,7 @@ class TestWorld2 extends TileWorld{
 
   }
 
+  /*
+  */
 
 }
