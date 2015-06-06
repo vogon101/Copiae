@@ -15,6 +15,6 @@ trait Renderable {
   var texture: Texture = null
   var renderEnabled : Boolean = true
 
-  def render
+  def render ()
 
 }

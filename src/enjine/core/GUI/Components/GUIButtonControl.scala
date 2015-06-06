@@ -6,6 +6,7 @@ import enjine.core.GUI.GUIElement
 import enjine.core.Graphics.R
 import enjine.core.Input.{MouseListener, Clickable}
 import enjine.core.Transform
+import org.newdawn.slick.opengl.Texture
 
 
 /**
@@ -23,12 +24,13 @@ class GUIButtonControl (private val _transform: Transform,
                         private val _action: (Int, Int, Int)=> Unit,
                         private val _color: Color3d,
                         val mb: Int = 0,
-                        private val _isOffset: Boolean = false)
+                        private val _isOffset: Boolean = false,
+                        private val _texture: Texture = null)
   extends GUIElement(_transform, _isOffset) with Clickable {
 
   //DONE:Add timing on buttons
 
-
+  texture = _texture
 
   color = _color
   /**
@@ -41,7 +43,7 @@ class GUIButtonControl (private val _transform: Transform,
   //Mouse listener at transform, mb = 0, not offset
   protected var _listener: MouseListener = new MouseListener(transform, action, mb, isOffset = isOffset)
 
-  //TODO: Allow textured GUIElements
+  //DONE: Allow textured GUIElements
 
 
 }

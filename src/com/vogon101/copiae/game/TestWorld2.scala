@@ -2,6 +2,7 @@ package com.vogon101.copiae.game
 
 import enjine.core.DataStructures.Color3d
 import enjine.core.GUI.Components._
+import enjine.core.Graphics.Textures
 import enjine.core.Input.{MouseListener, Input, KeyboardListener}
 import enjine.core.{Transform, Game}
 import enjine.tile.data.UnitType

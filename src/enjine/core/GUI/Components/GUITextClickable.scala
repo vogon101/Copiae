@@ -23,10 +23,11 @@ class GUITextClickable(var _text: String,
                        val mb: Int = 0,
                        bgColor: Color3d = null,
                        bgEnabled: Boolean = false,
-                       private val _isOffset: Boolean = false)
-  extends GUIText(_text, _font, _transform, _color, bgColor, bgEnabled, _isOffset)
+                       private val _isOffset: Boolean = false,
+                       private val _calculateSize: Boolean = true )
+  extends GUIText(_text, _font, _transform, _color, bgColor, bgEnabled, _isOffset, _calculateSize)
   with Clickable {
 
-  protected var _listener = new MouseListener(transform, _action, mb, isOffset = false)
+  protected var _listener = new MouseListener(transform, _action, mb, isOffset = isOffset)
 
 }

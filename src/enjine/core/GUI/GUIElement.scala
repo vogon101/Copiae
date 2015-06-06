@@ -18,6 +18,6 @@ class GUIElement (val transform: Transform, val isOffset: Boolean) extends Rende
    */
   def index = Game.gui.elements.indexOf(this)
 
-  def render = R.glQuad(transform, color, texture, isOffset)
+  def render() = R.glQuad(transform, color, texture, isOffset)
 
 }

@@ -24,7 +24,8 @@ class GUIText(private val _text: Any,
               private val _color: Color3d,
               bgColor: Color3d = null,
               bgEnabled: Boolean = false,
-              private val _isOffset: Boolean = false)
+              private val _isOffset: Boolean = false,
+              val calculateSize: Boolean = true )
   extends GUIElement(_transform, _isOffset){
 
   var text = _text.toString
@@ -32,7 +33,6 @@ class GUIText(private val _text: Any,
   //Done:Clickable text
 
   //TODO: Integrate different types of text into one class?
-  //TODO: Take in no size transform?
   //DONE: GUI panels block clicks?
   //DONE: Click priority by z
   //DONE: Give elements their index in array
@@ -40,9 +40,10 @@ class GUIText(private val _text: Any,
 
   require( (!bgEnabled) || (bgEnabled && bgColor != null), "Please pass a background colour" )
 
-  transform.xSize = font.getWidth(text)
-  transform.ySize = font.getHeight(text)
-
+  if (calculateSize) {
+    transform.xSize = font.getWidth(text)
+    transform.ySize = font.getHeight(text)
+  }
   color = _color
 
 
@@ -52,21 +53,10 @@ class GUIText(private val _text: Any,
   /**
    * Render the text
    */
-  override def render: Unit = {
+  override def render(): Unit = {
     if (bgEnabled) {
       R.glQuad(transform, bgColor, null, isOffset = isOffset)
     }
     R.glDrawText(text, font,transform, color, isOffset = isOffset)
   }
-}
-
-object GUIText {
-
-  val TEXT = 0
-  val TEXT_CLICKABLE = 1
-  val TEXT_TRACKER = 2
-
-  //TODO: IMPLEMENT BUILDER
-  def newText (textType: String, transform: Transform, color: Color3d, action: (Int, Int, Int) => Unit = null, evaluator: () => Unit): Unit = ???
-
 }

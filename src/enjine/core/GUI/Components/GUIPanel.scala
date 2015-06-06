@@ -5,6 +5,7 @@ import enjine.core.GUI.GUIElement
 import enjine.core.Graphics.R
 import enjine.core.Input.MouseListener
 import enjine.core.{Game, Transform}
+import org.newdawn.slick.opengl.Texture
 
 /**
  * Created by Freddie on 02/06/2015.
@@ -19,10 +20,12 @@ import enjine.core.{Game, Transform}
 class GUIPanel(private val _transform: Transform,
                private val _color: Color3d,
                val blocksClicks: Boolean = true,
-               private val _isOffset: Boolean = false)
+               private val _isOffset: Boolean = false,
+               private val _texture: Texture = null )
   extends GUIElement(_transform, _isOffset){
 
   color = _color
+  texture = _texture
 
   if (blocksClicks)
     Game.w.mouseManager.addListener(new MouseListener(

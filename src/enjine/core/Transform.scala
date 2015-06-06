@@ -11,7 +11,6 @@ class Transform (var x: Double, var y: Double, var xSize: Double, var ySize:Doub
   //DONE: MoveTowards
   //TODO: Make move-towards more elegant
   //TODO: Make sure max step is total for x+y not separate
-  //TODO: No size transform
 
   /**
    * Move towards another Transform
