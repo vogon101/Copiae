@@ -32,7 +32,7 @@ class GUIController (var textStyles: TextStyles) {
 
   /**
    * Update the GUI
-   * Checks for clicks on Clickables and updates any elements that implement Updateable
+   * Updates any elements that implement Updateable
    */
   def update(): Unit = {
 

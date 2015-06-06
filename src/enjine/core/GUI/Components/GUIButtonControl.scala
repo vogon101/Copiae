@@ -16,6 +16,7 @@ import enjine.core.Transform
  * @param _transform  - Where to draw the text (Size don't matter)
  * @param _action - Function to run onClick
  * @param _color - The colour to draw the button
+ * @param mb - The mouse button to respond to
  *
  */
 class GUIButtonControl (private val _transform: Transform, private val _action: (Int, Int, Int)=> Unit, private val _color: Color3d, val mb: Int = 0) extends GUIElement(_transform) with Clickable {

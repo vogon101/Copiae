@@ -27,8 +27,6 @@ class MouseManager {
         val y = Input.YtoUseable(Mouse.getEventY)
         val b = Mouse.getEventButton
 
-        println(y)
-
         //TODO: FIX GUI NO-OFFSET
         //Array buffer of listeners
         val clicks = new ArrayBuffer[MouseListener]()

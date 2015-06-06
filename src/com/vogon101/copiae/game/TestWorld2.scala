@@ -51,12 +51,13 @@ class TestWorld2 extends TileWorld{
         Color3d.BLUE))
 
     Game.gui.elements.append(
-      new GUIText("Banter",
+      new GUITextClickable("Banter",
         Game.gui.textStyles.STANDARD,
         new Transform(400,400,100,100),
         Color3d.RED,
-        Color3d.BLACK,
-        true))
+        (a: Int, b:Int, z: Int) => {println("Click me motherfukcer")},
+        bgColor = Color3d.BLACK,
+        bgEnabled = true))
 
   }
 

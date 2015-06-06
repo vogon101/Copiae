@@ -9,13 +9,16 @@ import enjine.core.{Game, Transform}
 /**
  * Created by Freddie on 02/06/2015.
  *
+ * Panel to act as basic background for GUI components
+ *
+ * @param _transform The area to draw it in
+ * @param _color The color to draw it
+ * @param blocksClicks - T => If a click in this panel, it will not trigger lower down elements
+ *
  */
 class GUIPanel(private val _transform: Transform, private val _color: Color3d, val blocksClicks: Boolean = true) extends GUIElement(_transform){
 
   color = _color
-
-  //TODO: Mouse managers for all clicks (mbs)
-  //TODO: |--> GUI Blocks all clicks
 
   if (blocksClicks)
     Game.w.mouseManager.addListener(new MouseListener(
