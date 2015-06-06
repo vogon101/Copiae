@@ -32,10 +32,11 @@ class GUITimedButtonControl(val _transform: Transform,
 
   private var currentTime: Int  = minTime
 
+  /**
+   * Update the timer
+   */
   override def update (): Unit = {
-
     currentTime += Time.deltaTime.toInt
-
   }
 
 

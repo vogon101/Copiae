@@ -9,8 +9,8 @@ package enjine.core
 class Transform (var x: Double, var y: Double, var xSize: Double, var ySize:Double, var z: Double = 0){
 
   //DONE: MoveTowards
-  //TODO: Make move-towards more elegant
-  //TODO: Make sure max step is total for x+y not separate
+  //TODO: Make move-towards more elegant 0.2
+  //TODO: Make sure max step is total for x+y not separate 0.2
 
   /**
    * Move towards another Transform

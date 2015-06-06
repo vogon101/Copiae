@@ -15,6 +15,8 @@ import org.newdawn.slick.opengl.Texture
  * @param _transform The area to draw it in
  * @param _color The color to draw it
  * @param blocksClicks - T => If a click in this panel, it will not trigger lower down elements
+ * @param _isOffset - Should this be offset by world.xOffset/yOffset
+ * @param _texture - The texture to draw
  *
  */
 class GUIPanel(private val _transform: Transform,
@@ -27,6 +29,7 @@ class GUIPanel(private val _transform: Transform,
   color = _color
   texture = _texture
 
+  //Add a listener to block clicks below it if requested
   if (blocksClicks)
     Game.w.mouseManager.addListener(new MouseListener(
         transform,

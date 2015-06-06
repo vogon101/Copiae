@@ -13,7 +13,7 @@ import org.newdawn.slick.util.ResourceLoader
  */
 object Textures {
 
-  //TODO: Sprite sheets
+  //TODO: Sprite sheets - 0.2
 
   val GRASS: Texture = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("./res/grass.jpg"))
   val UNIT: Texture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("./res/unit.png"))

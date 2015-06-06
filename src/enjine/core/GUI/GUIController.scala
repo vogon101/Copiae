@@ -15,6 +15,7 @@ import scala.collection.mutable.ArrayBuffer
  *
  */
 class GUIController (var textStyles: TextStyles) {
+  //TODO: All renderables rendered in one (done by z index) 0.2
 
   /**
    * The ArrayBuffer of GUIElements - these are not checked for clicks but just rendered
@@ -48,11 +49,21 @@ class GUIController (var textStyles: TextStyles) {
    * Both elements and buttons rendered
    */
   def render(): Unit = {
-    elements.foreach(e => if (e.renderEnabled)e.render)
+    elements.foreach(e => if (e.renderEnabled)e.render())
   }
 
+  /**
+   * Add a GUIElement to the list
+   * @param guiElement The GUIElement to add
+   * @return The index of the GUIElement just added
+   */
   def addElement (guiElement: GUIElement): Int = {elements.append(guiElement); elements.indexOf(guiElement)}
 
+  /**
+   * Get a GUIElement by index from the ArrayBuffer
+   * @param i - The index of the element
+   * @return The GUIElement
+   */
   def element (i: Int) = elements.apply(i)
 
 }

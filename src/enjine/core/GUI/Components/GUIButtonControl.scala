@@ -18,6 +18,7 @@ import org.newdawn.slick.opengl.Texture
  * @param _action - Function to run onClick
  * @param _color - The colour to draw the button
  * @param mb - The mouse button to respond to
+ * @param _isOffset - Should this be offset by world.xOffset/yOffset
  *
  */
 class GUIButtonControl (private val _transform: Transform,
@@ -40,7 +41,9 @@ class GUIButtonControl (private val _transform: Transform,
 
   //DONE: Gui elements other mbs
 
-  //Mouse listener at transform, mb = 0, not offset
+  /**
+   * The mouse listener for this object
+   */
   protected var _listener: MouseListener = new MouseListener(transform, action, mb, isOffset = isOffset)
 
   //DONE: Allow textured GUIElements

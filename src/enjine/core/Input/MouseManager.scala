@@ -8,6 +8,8 @@ import scala.collection.mutable.ArrayBuffer
 /**
  * Created by Freddie on 29/05/2015.
  *
+ * Class to manage all the mouse input listeners
+ *
  */
 class MouseManager {
 
@@ -16,6 +18,10 @@ class MouseManager {
    */
   val listeners: ArrayBuffer[MouseListener] = new ArrayBuffer[MouseListener]()
 
+  /**
+   * Updates all the listeners, checking for mouse presses
+   * and runs the correct one
+   */
   def update(): Unit = {
     //Go through all the mouse events
     while(Mouse.next()) {

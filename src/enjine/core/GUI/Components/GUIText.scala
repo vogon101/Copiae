@@ -15,8 +15,10 @@ import org.newdawn.slick.TrueTypeFont
  *@param font - The font to use
  *@param _transform - Where to render it
  *@param _color - The color to use for the text - UNIMPLEMENTED
- *
- *
+ *@param bgColor - The colour of the background of this tetx
+ *@param bgEnabled - Should a background be drawn
+ *@param _isOffset - Should this be offset by world.xOffset/yOffset
+ *@param calculateSize - Should this calculate its own size or use the one in the transform
  */
 class GUIText(private val _text: Any,
               var font: TrueTypeFont,
@@ -32,7 +34,7 @@ class GUIText(private val _text: Any,
 
   //Done:Clickable text
 
-  //TODO: Integrate different types of text into one class?
+  //TODO: Integrate different types of text into one class? - 0.2
   //DONE: GUI panels block clicks?
   //DONE: Click priority by z
   //DONE: Give elements their index in array

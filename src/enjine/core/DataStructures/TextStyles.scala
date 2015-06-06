@@ -13,7 +13,7 @@ import org.newdawn.slick.TrueTypeFont
  */
 class TextStyles {
 
-  var JFont : Font = null
+  private var JFont : Font = null
   var STANDARD: TrueTypeFont = null
 
 

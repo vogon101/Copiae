@@ -10,6 +10,9 @@ import enjine.core.Game
  */
 trait Clickable  {
 
+  /**
+   * The mouse listener for this object
+   */
   protected var _listener: MouseListener
 
   /**
