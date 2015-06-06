@@ -17,8 +17,8 @@ class TileType ( val texture: Texture,
   require(color != null || texture != null)
 }
 
-//TODO: Tile map world
-//TODO: More specific abilities for tiles
+//DONE: Tile map world
+//DONE: More specific abilities for tiles
 
 object TileType {
 

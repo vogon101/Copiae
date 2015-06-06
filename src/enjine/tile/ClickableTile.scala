@@ -1,6 +1,6 @@
 package enjine.tile
 
-import enjine.core.Input.MouseListener
+import enjine.core.Input.{Clickable, MouseListener}
 import enjine.core.{Game, Transform}
 import enjine.tile.data.TileType
 
@@ -18,10 +18,8 @@ class ClickableTile(private val _tileType:TileType,
   extends Tile(_tileType,
     _transform,
     _x,
-    _y){
+    _y) with Clickable{
 
-
-  Game.w.mouseManager.addListener(new MouseListener(transform, onClick))
-
+  protected var _listener = new MouseListener(transform, onClick)
 
 }

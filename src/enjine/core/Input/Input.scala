@@ -11,7 +11,7 @@ import org.lwjgl.opengl.Display
  */
 object Input {
 
-  //TODO: Offset mouse clicks
+  //DONE: Offset mouse clicks
 
   /**
    * Get the mouse X position
@@ -27,6 +27,8 @@ object Input {
 
   def mxo = mx + Game.w.xOffset
   def myo = my + Game.w.yOffset
+
+  def YtoUseable(y: Int) = Display.getHeight -y
 
   def XtoOffset (x: Int) = x+Game.w.xOffset
   def YtoOffset (y: Int) = Display.getHeight -y+Game.w.yOffset

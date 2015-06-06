@@ -26,10 +26,22 @@ class Game (val gameSettings: GameSettings){
    */
   var running: Boolean = false
 
+
+  private var _world:World = null
+
   /**
    * The current loaded world
    */
-  var world:World = null
+  def world = _world
+
+  /**
+   * Set the world, updates the static instance in Game
+   * @param nworld The new world object
+   */
+  def world_= (nworld: World): Unit = {
+    _world = nworld
+    Game.setWorld(nworld)
+  }
 
   /**
    * The GUIController to uses
@@ -82,11 +94,8 @@ class Game (val gameSettings: GameSettings){
     Time.update()
     renderer.render(world)
     keyboardManager.update()
-    world.update()
     GUIController.update()
-
-
-
+    world.update()
   }
 
 }
@@ -127,10 +136,17 @@ object Game {
    */
   def gui = _gui
 
-  //TODO: Make sure that when world changes, this changes
+  //DONE: Make sure that when world changes, this changes
   def init (game: Game, renderControl: RenderControl, GUIController: GUIController, world: World) {
-    if (g==null)_g = game
-    if (gui == null)_gui = GUIController
+    if (g == null) _g = game
+    if (gui == null) _gui = GUIController
     if (r == null) _renderControl = renderControl
-    _world = world}
+    _world = world
+  }
+
+  /**
+   * Change the world
+   * @param world New world object
+   */
+  def setWorld (world: World) = _world = world
 }

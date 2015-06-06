@@ -11,7 +11,7 @@ import scala.collection.mutable.ArrayBuffer
  * A class to contain a map made up of Tiles
  *
  */
-class TileWorld extends World{
+class TileWorld extends World {
 
   /**
    * The map width in tiles
@@ -46,7 +46,7 @@ class TileWorld extends World{
   override def render (): Unit = {
     for (x <- tiles.indices) {
       for (y <- tiles.indices) {
-        tiles(x)(y).render()
+        tiles(x)(y).render
       }
     }
 
@@ -59,7 +59,15 @@ class TileWorld extends World{
   def genWorld(): Unit = {
     for (x <- tiles.indices) {
       for (y <- tiles.indices) {
-        tiles(x)(y) = new ClickableTile(TileType.GRASS, new Transform (x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE), x, y, (mx: Int, my: Int, mb:Int) => {println(x); println(y); println(mb); println("______________")})
+        tiles(x)(y) = new ClickableTile(TileType.GRASS,
+          new Transform (x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE),
+          x, y,
+          (mx: Int, my: Int, mb:Int) =>
+            { println(x)
+              println(y)
+              println(mb)
+              println("______________")
+            })
       }
     }
   }
@@ -79,6 +87,5 @@ class TileWorld extends World{
    * @return The tile
    */
   def tileC (x: Int, y: Int): Tile = tiles(x)(y)
-
 
 }

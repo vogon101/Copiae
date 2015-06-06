@@ -1,5 +1,7 @@
 package enjine.core.Input
 
+import enjine.core.Game
+
 /**
  * Created by Freddie on 23/05/2015.
  *
@@ -8,17 +10,21 @@ package enjine.core.Input
  */
 trait Clickable  {
 
-  /**
-   * The onclick action Unit
-   */
-  var action: (Int) => Unit
+  protected var _listener: MouseListener
 
   /**
-   * Allows checking for a click
-   * @param mx - Mouse X
-   * @param my - Mouse Y
-   * @param mb - Mouse Button
+   * @return This tile's current MouseListener
    */
-  def checkClick (mx:Int, my:Int, mb:Int)
+  def listener = _listener
+
+  /**
+   * Set the listener, adds it to the list and removes the old one
+   * @param mouseListener The new MouseListener
+   */
+  def listener_= (mouseListener: MouseListener): Unit = {
+    listener.removeFomList()
+    _listener = mouseListener
+    Game.w.mouseManager.addListener(listener)
+  }
 
 }
