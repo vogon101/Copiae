@@ -58,8 +58,17 @@ class World {
 
   }
 
+  /**
+   * Get a GameObject by index from the ArrayBuffer
+   * @param i - The index to fetch
+   * @return The selected game object
+   */
   def gameObject (i: Int) = gameObjects.apply(i)
 
+  /**
+   * Add a GameObject to teh ArrayBuffer
+   * @param gameObject - The object to add
+   */
   def addGO (gameObject: GameObject) = gameObjects.append(gameObject)
 
 }

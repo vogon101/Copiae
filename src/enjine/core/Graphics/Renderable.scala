@@ -11,10 +11,22 @@ import org.newdawn.slick.opengl.Texture
  */
 trait Renderable {
 
+  /**
+   * The colour of the object (Color3d)
+   */
   var color : Color3d = null
+  /**
+   * The texture of the object
+   */
   var texture: Texture = null
+  /**
+   * Should this be rendered
+   */
   var renderEnabled : Boolean = true
 
-  def render
+  /**
+   * Render the object
+   */
+  def render ()
 
 }

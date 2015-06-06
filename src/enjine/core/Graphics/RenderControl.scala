@@ -171,6 +171,7 @@ object R {
    * @param transform - Where to draw it
    * @param color3d - The colour to draw it
    * @param texture - The texture to draw it
+   * @param isOffset - Should this be offset by world.xOffset/yOffset
    */
   def glQuad (transform: Transform, color3d: Color3d, texture: Texture, isOffset: Boolean = true): Unit = {
     if (texture != null) {
@@ -185,6 +186,7 @@ object R {
    * Draw an untextured quad
    * @param transform - The box to draw
    * @param color - The colour to draw it
+   * @param offset - Should this be offset by world.xOffset/yOffset
    */
   def glDrawQuadUntextured (transform: Transform, color: Color3d, offset:Boolean): Unit = {
 
@@ -214,6 +216,8 @@ object R {
    * @param text - The text to render
    * @param trueTypeFont - The font to use
    * @param transform - Where to draw it
+   * @param color - The colour to draw the text
+   * @param isOffset - Should this be offset by world.xOffset/yOffset
    */
   def glDrawText (text:String, trueTypeFont: TrueTypeFont, transform: Transform, color: Color3d = Color3d.WHITE, isOffset: Boolean = false): Unit = {
     glEnableText()
@@ -246,6 +250,7 @@ object R {
    * @param transform - Where to draw it
    * @param texture - What texture to draw it
    * @param color3d - What colour to draw it
+   * @param offset - Should this be offset by world.xOffset/yOffset
    */
   def glDrawQuadTextured (transform: Transform, texture: Texture, color3d: Color3d = Color3d.WHITE, offset: Boolean = true): Unit = {
 
@@ -281,7 +286,10 @@ object R {
   //}
 
 
-  private def glEnableText (): Unit = {
+  /**
+   * Enable drawing text to the screen
+   */
+  def glEnableText (): Unit = {
     GL11.glEnable(GL11.GL_TEXTURE_2D)
 
     GL11.glClearColor(1f,1f,1f,1.0f)

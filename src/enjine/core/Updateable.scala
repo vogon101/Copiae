@@ -9,8 +9,14 @@ trait Updateable {
 
   //DONE: Implement isActive
 
+  /**
+   * Should the update() be run every frame
+   */
   var active: Boolean = true
 
+  /**
+   * Update the object
+   */
   def update()
 
 }

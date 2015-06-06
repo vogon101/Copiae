@@ -8,8 +8,10 @@ import enjine.core.Graphics.{R, Renderable}
  *
  * Basic class for GUI content
  *
+ * @param transform - Where should this object be
+ * @param isOffset - Should this be offset by world.xOffset/yOffset
  */
-class GUIElement (val transform: Transform, val isOffset: Boolean) extends Renderable{
+abstract class GUIElement (val transform: Transform, val isOffset: Boolean) extends Renderable{
 
   transform.z = 2
 
@@ -18,6 +20,6 @@ class GUIElement (val transform: Transform, val isOffset: Boolean) extends Rende
    */
   def index = Game.gui.elements.indexOf(this)
 
-  def render = R.glQuad(transform, color, texture, isOffset)
+  def render() = R.glQuad(transform, color, texture, isOffset)
 
 }

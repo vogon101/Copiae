@@ -3,7 +3,9 @@ package enjine.core.Input
 import enjine.core.{Game, Transform}
 
 /**
- * Created by Freddie on 29/05/2015.
+ * Class that listens for a press on a specific screen region and runs an action if so
+ *
+ * action structure = (mouse-x: Int, mouse-y: Int, mouse-button: Int)
  *
  */
 class MouseListener (val transform: Transform, var action: (Int, Int, Int) => Unit, val mb: Int = 0, val mouseManager: MouseManager = Game.w.mouseManager, val isOffset: Boolean = true){
@@ -22,6 +24,12 @@ class MouseListener (val transform: Transform, var action: (Int, Int, Int) => Un
     false
   }
 
+  /**
+   * Run the action of the listener
+   * @param mx - Mouse x position
+   * @param my - Mouse y position
+   * @param cmb - Mouse button
+   */
   def runClick (mx:Int, my: Int, cmb: Int) = action(mx,my,mb)
 
   /**
@@ -30,6 +38,9 @@ class MouseListener (val transform: Transform, var action: (Int, Int, Int) => Un
    */
   def index = Game.w.mouseManager.listeners.indexOf(this)
 
-  def removeFomList() = {println(index);if (Game.w.mouseManager.listeners.contains(this))Game.w.mouseManager.listeners.remove(index)}
+  /**
+   * Remove this listener from the list in Game.w.mouseManager.listeners
+   */
+  def removeFomList(): Unit = {if (Game.w.mouseManager.listeners.contains(this))Game.w.mouseManager.listeners.remove(index)}
 
 }

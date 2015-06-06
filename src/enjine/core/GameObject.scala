@@ -12,6 +12,7 @@ import org.newdawn.slick.opengl.Texture
  *
  * @param transform - The position and scale of the object
  * @param _color - The color of the object
+ * @param _texture The texture of the object
  *
  */
 abstract  class GameObject (val transform: Transform, private val _color: Color3d, private val _texture: Texture) extends Renderable with Updateable{
