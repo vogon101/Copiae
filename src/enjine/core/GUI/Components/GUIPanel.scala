@@ -16,7 +16,11 @@ import enjine.core.{Game, Transform}
  * @param blocksClicks - T => If a click in this panel, it will not trigger lower down elements
  *
  */
-class GUIPanel(private val _transform: Transform, private val _color: Color3d, val blocksClicks: Boolean = true) extends GUIElement(_transform){
+class GUIPanel(private val _transform: Transform,
+               private val _color: Color3d,
+               val blocksClicks: Boolean = true,
+               private val _isOffset: Boolean = false)
+  extends GUIElement(_transform, _isOffset){
 
   color = _color
 
@@ -24,7 +28,7 @@ class GUIPanel(private val _transform: Transform, private val _color: Color3d, v
     Game.w.mouseManager.addListener(new MouseListener(
         transform,
         (a:Int, b:Int, c:Int) => {},
-        isOffset = false
+        isOffset = isOffset
     ))
 
 

@@ -4,6 +4,7 @@ import enjine.core.DataStructures.Color3d
 import enjine.core.GUI.GUIElement
 import enjine.core.Graphics.R
 import enjine.core.Transform
+import jdk.internal.org.objectweb.asm.commons.CodeSizeEvaluator
 import org.newdawn.slick.TrueTypeFont
 
 /**
@@ -22,14 +23,15 @@ class GUIText(private val _text: Any,
               private val _transform: Transform,
               private val _color: Color3d,
               bgColor: Color3d = null,
-              bgEnabled: Boolean = false) extends GUIElement(_transform){
+              bgEnabled: Boolean = false,
+              private val _isOffset: Boolean = false)
+  extends GUIElement(_transform, _isOffset){
 
   var text = _text.toString
 
   //Done:Clickable text
 
   //TODO: Integrate different types of text into one class?
-  //TODO: Text static builder
   //TODO: Take in no size transform?
   //DONE: GUI panels block clicks?
   //DONE: Click priority by z
@@ -52,8 +54,19 @@ class GUIText(private val _text: Any,
    */
   override def render: Unit = {
     if (bgEnabled) {
-      R.glQuad(transform, bgColor, null, isOffset = false)
+      R.glQuad(transform, bgColor, null, isOffset = isOffset)
     }
-    R.glDrawText(text, font,transform, color)
+    R.glDrawText(text, font,transform, color, isOffset = isOffset)
   }
+}
+
+object GUIText {
+
+  val TEXT = 0
+  val TEXT_CLICKABLE = 1
+  val TEXT_TRACKER = 2
+
+  //TODO: IMPLEMENT BUILDER
+  def newText (textType: String, transform: Transform, color: Color3d, action: (Int, Int, Int) => Unit = null, evaluator: () => Unit): Unit = ???
+
 }

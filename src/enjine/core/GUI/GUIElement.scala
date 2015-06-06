@@ -9,7 +9,7 @@ import enjine.core.Graphics.{R, Renderable}
  * Basic class for GUI content
  *
  */
-class GUIElement (val transform: Transform) extends Renderable{
+class GUIElement (val transform: Transform, val isOffset: Boolean) extends Renderable{
 
   transform.z = 2
 
@@ -18,6 +18,6 @@ class GUIElement (val transform: Transform) extends Renderable{
    */
   def index = Game.gui.elements.indexOf(this)
 
-  def render = R.glQuad(transform,color, texture, isOffset = false)
+  def render = R.glQuad(transform, color, texture, isOffset)
 
 }

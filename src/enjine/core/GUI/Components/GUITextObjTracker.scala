@@ -15,7 +15,12 @@ import org.newdawn.slick.TrueTypeFont
  * @param _color The colour of the text
  *
  */
-class GUITextObjTracker(var evaluator:()=> Any, private val _font: TrueTypeFont, private val _transform: Transform, private val _color: Color3d) extends GUIText (evaluator (), _font, _transform, _color) with Updateable{
+class GUITextObjTracker(var evaluator:()=> Any,
+                        private val _font: TrueTypeFont,
+                        private val _transform: Transform,
+                        private val _color: Color3d,
+                        private val _isOffset: Boolean = false)
+  extends GUIText (evaluator (), _font, _transform, _color, _isOffset = _isOffset) with Updateable{
 
   //TODO: Make obj tracking more elegant - FABRI
 

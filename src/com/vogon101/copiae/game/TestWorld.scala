@@ -44,7 +44,7 @@ class TestWorld extends World{
         Game.gui.textStyles.STANDARD,
         new Transform(400,400,100,100),
         Color3d.RED,
-        (mx:Int, my:Int, mb:Int) => {println("I am clickable")}))
+        (mx:Int, my:Int, mb:Int) => {println("I am clickable")}, _isOffset = true))
 
     val a: BanterObject = new BanterObject(new Transform(200,100,30,10), Color3d.RED, null)
     val b: BanterObject = new BanterObject(new Transform(900,400,30,10), Color3d.WHITE, null)

@@ -19,7 +19,12 @@ import enjine.core.Transform
  * @param mb - The mouse button to respond to
  *
  */
-class GUIButtonControl (private val _transform: Transform, private val _action: (Int, Int, Int)=> Unit, private val _color: Color3d, val mb: Int = 0) extends GUIElement(_transform) with Clickable {
+class GUIButtonControl (private val _transform: Transform,
+                        private val _action: (Int, Int, Int)=> Unit,
+                        private val _color: Color3d,
+                        val mb: Int = 0,
+                        private val _isOffset: Boolean = false)
+  extends GUIElement(_transform, _isOffset) with Clickable {
 
   //DONE:Add timing on buttons
 
@@ -34,7 +39,7 @@ class GUIButtonControl (private val _transform: Transform, private val _action: 
   //DONE: Gui elements other mbs
 
   //Mouse listener at transform, mb = 0, not offset
-  protected var _listener: MouseListener = new MouseListener(transform, action, mb, isOffset = false)
+  protected var _listener: MouseListener = new MouseListener(transform, action, mb, isOffset = isOffset)
 
   //TODO: Allow textured GUIElements
 

@@ -140,7 +140,7 @@ class RenderControl (_gameSettings: GameSettings) {
 
 }
 
-//TODO: ALL GUI ELEMENTS NO OFFSET!!!
+//DONE: ALL GUI ELEMENTS NO OFFSET!!!
 
 /**
  * Contains static methods to make rendering easier
@@ -217,9 +217,17 @@ object R {
    */
   def glDrawText (text:String, trueTypeFont: TrueTypeFont, transform: Transform, color: Color3d = Color3d.WHITE, isOffset: Boolean = false): Unit = {
     glEnableText()
-    if (isOffset)
-      throw new NotImplementedError("NOT DONE YET. Come back later...")
-      //trueTypeFont.drawString(transform.x.toInt+Game.w.xOffset, transform.y.toInt+Game.w.yOffset, text, color.toSlickColor)
+    if (isOffset) {
+      //throw new NotImplementedError("NOT DONE YET. Come back later...")
+      GL11.glPushMatrix()
+        //glTranslateTOffset(new Transform(transform.x, transform.y, 0,0,0))
+        trueTypeFont.drawString(
+          transform.x.toInt-Game.w.xOffset,
+          transform.y.toInt-Game.w.yOffset,
+          text,
+          color.toSlickColor)
+      GL11.glPopMatrix()
+    }
     else
       trueTypeFont.drawString(transform.x.toInt, transform.y.toInt, text, color.toSlickColor)
     glEnableDraw()

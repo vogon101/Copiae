@@ -13,8 +13,18 @@ import enjine.core.{Transform, Updateable}
  * IE ignores any clicks that happen too quickly
  *
  */
-class GUITimedButtonControl(val _transform: Transform, private val _action: (Int, Int, Int)=> Unit, private val _color: Color3d, var minTime: Int)
-  extends GUIButtonControl (_transform, _action, _color)
+class GUITimedButtonControl(val _transform: Transform,
+                            private val _action: (Int, Int, Int)=> Unit,
+                            private val _color: Color3d,
+                            var minTime: Int,
+                            private val _isOffset: Boolean = false
+                             )
+  extends GUIButtonControl (
+    _transform,
+    _action,
+    _color,
+    _isOffset = _isOffset
+  )
   with Updateable{
 
   private var currentTime: Int  = minTime

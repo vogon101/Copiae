@@ -57,7 +57,8 @@ class TestWorld2 extends TileWorld{
         Color3d.RED,
         (a: Int, b:Int, z: Int) => {println("Click me motherfukcer")},
         bgColor = Color3d.BLACK,
-        bgEnabled = true))
+        bgEnabled = true,
+        _isOffset = true))
 
   }
 
